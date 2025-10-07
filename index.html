@@ -1,371 +1,355 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>名古屋五日精華遊 (地圖連結版)</title>
+    <title>我的名古屋5日遊互動行程</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
-    <!-- Chosen Palette: Warm Neutrals -->
-    <!-- Application Structure Plan: A single-page, function-focused layout. The sticky top navigation allows quick jumps between days and the 'Gourmet Map'. The itinerary timeline is text-only for clarity and fast loading, providing official links for attractions. The Gourmet Map section has been redesigned to remove static images and instead embeds interactive Google Maps for each restaurant, offering superior utility for planning and navigation. -->
-    <!-- Visualization & Content Choices: Report Info: Daily itinerary and restaurant recommendations -> Goal: Organize, Inform, Navigate -> Presentation: 1. A clean, text-based vertical timeline. 2. A filterable grid for restaurants featuring embedded Google Maps. -> Interaction: 1. Sticky nav smooth scrolling. 2. Clickable official/Google Maps links. 3. Interactive gourmet filter buttons. -> Justification: This version prioritizes utility and performance over aesthetics. Embedded maps provide more value than static images for a travel plan, and removing all photos ensures fast loading times on any device or network. Library/Method: Vanilla JS, HTML/Tailwind CSS. -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         body {
             font-family: 'Noto Sans TC', sans-serif;
-            background-color: #F8F7F5;
-            color: #3d3d3d;
         }
-        .sticky-nav {
-            position: -webkit-sticky;
-            position: sticky;
-            top: 0;
-            z-index: 50;
-            transition: box-shadow 0.3s;
-        }
-        a {
-            color: #A0522D;
-            text-decoration: none;
-            transition: color 0.3s;
-            font-weight: 500;
-        }
-        a:hover {
-            color: #7a3c1e;
-            text-decoration: underline;
-        }
-        .filter-btn.active {
-            background-color: #A0522D;
+        .tab-btn.active {
+            background-color: #ef4444; /* red-500 */
             color: white;
+            border-color: #ef4444; /* red-500 */
         }
-        .gourmet-card {
-            transition: transform 0.3s ease, opacity 0.3s ease;
-        }
-        .gourmet-card.hidden {
-            transform: scale(0.95);
-            opacity: 0;
+        .day-content {
             display: none;
+        }
+        .day-content.active {
+            display: block;
+        }
+        .timeline {
+            position: relative;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0.875rem; /* 14px */
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background-color: #e5e7eb; /* gray-200 */
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0.5rem; /* 8px */
+            top: 5px;
+            width: 18px;
+            height: 18px;
+            background-color: white;
+            border: 3px solid #f87171; /* red-400 */
+            border-radius: 9999px;
+            z-index: 1;
+        }
+        .map-embed {
+            width: 100%;
+            height: 200px;
+            border-radius: 8px;
+            margin-top: 12px;
         }
     </style>
 </head>
-<body class="antialiased">
+<body class="bg-gray-100 p-2 sm:p-5">
 
-    <header class="text-center py-10 md:py-14 bg-amber-100">
-        <div class="py-10">
-            <h1 class="text-4xl md:text-5xl font-bold text-amber-900 tracking-wider">名古屋五日精華遊</h1>
-            <p class="mt-3 text-lg text-amber-800">2025.11.23 - 2025.11.27</p>
-        </div>
-    </header>
+    <div class="max-w-7xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
+        <header class="bg-gray-800 text-white p-6 text-center">
+            <h1 class="text-3xl md:text-4xl font-bold">我的名古屋5日遊互動行程</h1>
+            <p class="text-gray-300 mt-2">2025年11月23日 - 2025年11月27日</p>
+        </header>
 
-    <div class="bg-amber-50 py-6">
-        <section class="max-w-6xl mx-auto px-4">
-             <h2 class="text-2xl font-bold text-amber-900 mb-4 text-center">核心旅遊資訊</h2>
-             <div class="grid md:grid-cols-2 gap-4 text-gray-700">
-                 <div class="bg-white/80 p-4 rounded-lg shadow-sm">
-                     <h3 class="font-bold text-lg mb-2">✈️ 航班資訊</h3>
-                     <p><strong class="font-semibold">去程:</strong> 國泰航空 CX530 (11/23, 12:00 ~ 15:35)</p>
-                     <p><strong class="font-semibold">回程:</strong> 國泰航空 CX531 (11/27, 16:40 ~ 19:15)</p>
-                 </div>
-                 <div class="bg-white/80 p-4 rounded-lg shadow-sm">
-                     <h3 class="font-bold text-lg mb-2">🏨 住宿資訊</h3>
-                     <p><strong class="font-semibold">飯店:</strong> <a href="https://maps.app.goo.gl/9rL1g8o8G7fX297E7" target="_blank" rel="noopener noreferrer">Daiwa Roynet Hotel 名古屋太閤通口</a></p>
-                     <p><strong class="font-semibold">地點:</strong> 近名古屋車站，交通便利</p>
-                 </div>
-             </div>
-        </section>
+        <main>
+            <!-- Itinerary Section -->
+            <div class="p-4 sm:p-8">
+                <div class="flex justify-center flex-wrap gap-2 mb-6">
+                    <button class="tab-btn active py-2 px-4 rounded-full border-2 border-gray-300 font-semibold transition-all duration-300" onclick="showDay(event, 'day1')">Day 1 (11/23)</button>
+                    <button class="tab-btn py-2 px-4 rounded-full border-2 border-gray-300 font-semibold transition-all duration-300" onclick="showDay(event, 'day2')">Day 2 (11/24)</button>
+                    <button class="tab-btn py-2 px-4 rounded-full border-2 border-gray-300 font-semibold transition-all duration-300" onclick="showDay(event, 'day3')">Day 3 (11/25)</button>
+                    <button class="tab-btn py-2 px-4 rounded-full border-2 border-gray-300 font-semibold transition-all duration-300" onclick="showDay(event, 'day4')">Day 4 (11/26)</button>
+                    <button class="tab-btn py-2 px-4 rounded-full border-2 border-gray-300 font-semibold transition-all duration-300" onclick="showDay(event, 'day5')">Day 5 (11/27)</button>
+                </div>
+                
+                 <!-- General Tips -->
+                <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r-lg mb-6">
+                    <h4 class="font-bold text-yellow-800">交通與花費小提示</h4>
+                    <p class="text-sm text-yellow-700 mt-1">在市區觀光日 (Day 4)，若搭乘地鐵超過3次，建議購買地鐵一日券 (平日¥760 / 假日¥620)，會比單次購票划算。</p>
+                </div>
+
+                <!-- Day 1 Content -->
+                <div id="day1" class="day-content active">
+                    <ul class="timeline">
+                        <li class="timeline-item relative pl-10 pb-8">
+                            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                                <span class="block font-bold text-gray-700 text-base">15:35 - 17:30</span>
+                                <h3 class="text-xl font-bold mt-1 text-gray-800">✈️ 抵達名古屋 & 機場交通</h3>
+                                <p class="mt-2 text-gray-600">📍 <a href="https://www.google.com/maps/search/?api=1&query=中部国際空港" target="_blank" class="text-blue-600 hover:underline">中部國際機場 (NGO)</a> | ℹ️ <a href="https://www.centrair.jp/tzh/" target="_blank" class="text-blue-600 hover:underline">官方網站</a></p>
+                                <p class="mt-2 text-gray-500 text-sm">搭乘國泰航空 CX530 抵達後，轉乘「名鐵μ-SKY」特急列車前往市區。</p>
+                                <div class="mt-3 text-sm text-gray-600">
+                                    <p>🕒 交通時間：約 28-35 分鐘</p>
+                                    <p>💰 預估花費：¥1,250 (μ-SKY) 或 ¥890 (特急)</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="timeline-item relative pl-10 pb-8">
+                           <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                                <span class="block font-bold text-gray-700 text-base">17:30 - 18:00</span>
+                                <h3 class="text-xl font-bold mt-1 text-gray-800">🏨 飯店 Check-in</h3>
+                                <p class="mt-2 text-gray-600">📍 <a href="https://www.google.com/maps/search/?api=1&query=大和ROYNET飯店+名古屋太閣通口" target="_blank" class="text-blue-600 hover:underline">大和ROYNET飯店 名古屋太閣通口</a></p>
+                                <p class="mt-1 text-gray-500 text-sm">從名古屋站步行即可抵達，交通極為便利。</p>
+                            </div>
+                        </li>
+                        <li class="timeline-item relative pl-10 pb-8">
+                           <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                                <span class="block font-bold text-gray-700 text-base">18:30 - 21:00</span>
+                                <h3 class="text-xl font-bold mt-1 text-gray-800">🌃 榮商圈夜景</h3>
+                                <p class="mt-2 text-gray-600">📍 <a href="https://www.google.com/maps/search/?api=1&query=綠洲21" target="_blank" class="text-blue-600 hover:underline">綠洲21 & 中部電力 MIRAI TOWER</a></p>
+                                <p class="mt-1 text-gray-600">ℹ️ <a href="https://www.sakaepark.co.jp/tr/" target="_blank" class="text-blue-600 hover:underline">綠洲21官網</a> | <a href="https://www.nagoya-tv-tower.co.jp/tr/" target="_blank" class="text-blue-600 hover:underline">電視塔官網</a></p>
+                                <p class="mt-1 text-gray-500 text-sm">欣賞名古屋市區的璀璨夜景，感受都市的活力。</p>
+                                <div class="mt-3 text-sm text-gray-600">
+                                    <p>🕒 交通時間：(地鐵) 約 5 分鐘</p>
+                                    <p>💰 預估花費：(地鐵) ¥210 / (電視塔門票) 約 ¥1,300</p>
+                                </div>
+                                <div class="mt-4 p-3 bg-blue-50 border-l-4 border-blue-400 rounded-r-lg">
+                                    <h4 class="font-bold text-blue-800"><i class="fas fa-cloud-rain mr-2"></i>雨天備案</h4>
+                                    <p class="text-sm text-blue-700 mt-1">此區多為室內或有遮蔽，影響不大。可花更多時間探索「榮地下街 (Sakae Chika)」或「Central Park 地下街」，感受日本最大規模地下街的魅力。</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="timeline-item relative pl-10">
+                           <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                                <span class="block font-bold text-gray-700 text-base">晚餐</span>
+                                <h3 class="text-xl font-bold mt-1 text-gray-800">🥩 炭火焼肉 伏見屋 飛騨牛 別邸</h3>
+                                <p class="mt-1 text-gray-500 text-sm">位於伏見地區的高級燒肉店，專門提供頂級的飛驒牛。晚餐後若有時間，仍可到榮商圈的 HARBS 享用甜點。</p>
+                                <div class="mt-3 text-sm text-gray-600">
+                                    <p>💰 預估花費：(晚餐) ¥6,000-9,000 / (甜點) ¥1,500-2,000</p>
+                                </div>
+                                <iframe class="map-embed" loading="lazy" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3261.649390547475!2d136.8973693152447!3d35.16556598031699!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x600370d9703d15ef%3A0x152277d3f9f9d150!2z54K554Gr54S86IKJIOalteaAn-WgtOagvOeVqiDliY3pmYg!5e0!3m2!1szh-TW!2stw!4v1699344444555!5m2!1szh-TW!2stw"></iframe>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Day 2 Content -->
+                <div id="day2" class="day-content">
+                     <ul class="timeline">
+                        <li class="timeline-item relative pl-10 pb-8">
+                            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                                <span class="block font-bold text-gray-700 text-base">早餐</span>
+                                <h3 class="text-xl font-bold mt-1 text-gray-800">🥐 Komeda's Coffee (コメダ珈琲店)</h3>
+                                <p class="mt-1 text-gray-500 text-sm">體驗名古屋獨特的「點飲料送早餐」文化，品嚐厚片吐司與紅豆泥的經典組合。</p>
+                                <div class="mt-3 text-sm text-gray-600">
+                                    <p>💰 預估花費：¥800 - ¥1,200</p>
+                                </div>
+                                <iframe class="map-embed" loading="lazy" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3261.89862592188!2d136.8804823152445!3d35.15934178031861!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x600376c9b68a86a1%3A0xf64f3a55c32ab7b2!2z44Kz44Oh44OA54-I546L5bqXIOOCpuOCv-OCuOODs-ODiOODleODquODg-ODiA!5e0!3m2!1szh-TW!2stw!4v1633581699945!5m2!1szh-TW!2stw"></iframe>
+                            </div>
+                        </li>
+                        <li class="timeline-item relative pl-10 pb-8">
+                           <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                                <span class="block font-bold text-gray-700 text-base">10:00 - 17:00</span>
+                                <h3 class="text-xl font-bold mt-1 text-gray-800">🌳 探索吉卜力公園</h3>
+                                <p class="mt-2 text-gray-600">📍 <a href="https://www.google.com/maps/search/?api=1&query=ジブリパーク" target="_blank" class="text-blue-600 hover:underline">吉卜力公園</a> | ℹ️ <a href="https://ghibli-park.jp/" target="_blank" class="text-blue-600 hover:underline">官方網站</a></p>
+                                <p class="mt-1 text-gray-500 text-sm">沉浸在動畫大師的奇幻世界中。門票為完全預約制！午餐可在園區內的「大陸橫斷飛行咖啡廳」享用。</p>
+                                <div class="mt-3 text-sm text-gray-600">
+                                    <p>🕒 交通時間：約 50-60 分鐘</p>
+                                    <p>💰 預估花費：(交通) 單程約 ¥670 / (午餐) ¥1,500-2,500</p>
+                                </div>
+                                <div class="mt-4 p-3 bg-blue-50 border-l-4 border-blue-400 rounded-r-lg">
+                                    <h4 class="font-bold text-blue-800"><i class="fas fa-cloud-rain mr-2"></i>雨天備案</h4>
+                                    <p class="text-sm text-blue-700 mt-1">吉卜力公園大部分設施（如大倉庫）皆為室內，是絕佳的雨天選擇。只需準備雨傘在園區各區域間移動即可。</p>
+                                </div>
+                            </div>
+                        </li>
+                         <li class="timeline-item relative pl-10">
+                           <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                                <span class="block font-bold text-gray-700 text-base">晚餐</span>
+                                <h3 class="text-xl font-bold mt-1 text-gray-800">🍖 矢場とん (矢場味噌豬排)</h3>
+                                <p class="mt-1 text-gray-500 text-sm">返回名古屋車站後，品嚐名古屋代表美食之一的味噌豬排，濃郁的醬汁搭配酥脆的豬排，令人回味無窮。</p>
+                                <div class="mt-3 text-sm text-gray-600">
+                                    <p>💰 預估花費：¥2,000 - ¥3,000</p>
+                                </div>
+                                <iframe class="map-embed" loading="lazy" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3261.849021644754!2d136.88339131524456!3d35.1605669803182!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x600376c9d8ab8777%3A0x868b2481062b5311!2z55-z5aC044Go44KTIOODk-ODg-OCt-ODvOW6l-S4i-OCreODo-ODs-OCuA!5e0!3m2!1szh-TW!2stw!4v1633581804863!5m2!1szh-TW!2stw"></iframe>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Day 3 Content -->
+                <div id="day3" class="day-content">
+                     <ul class="timeline">
+                         <li class="timeline-item relative pl-10 pb-8">
+                            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                                <span class="block font-bold text-gray-700 text-base">早餐</span>
+                                <h3 class="text-xl font-bold mt-1 text-gray-800">🍤 コンパル (Komparu)</h3>
+                                <p class="mt-1 text-gray-500 text-sm">前往昭和時代創立的老牌喫茶店，品嚐名古屋特有的炸蝦三明治，開啟活力的一天。</p>
+                                <div class="mt-3 text-sm text-gray-600">
+                                    <p>💰 預估花費：¥1,000 - ¥1,500</p>
+                                </div>
+                                <iframe class="map-embed" loading="lazy" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3261.737081759618!2d136.88372631524462!3d35.16335098031737!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x600376c9e995c079%3A0x6233b5c656306a73!2z44Kz44Oz44OR44Or!5e0!3m2!1szh-TW!2stw!4v1633581896798!5m2!1szh-TW!2stw"></iframe>
+                            </div>
+                        </li>
+                        <li class="timeline-item relative pl-10 pb-8">
+                           <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                                <span class="block font-bold text-gray-700 text-base">10:00 - 16:00</span>
+                                <h3 class="text-xl font-bold mt-1 text-gray-800">🏯 國寶犬山城 & 城下町散策</h3>
+                                <p class="mt-2 text-gray-600">📍 <a href="https://www.google.com/maps/search/?api=1&query=犬山城" target="_blank" class="text-blue-600 hover:underline">犬山城</a> | ℹ️ <a href="https://inuyamajo.jp/zh-hant/" target="_blank" class="text-blue-600 hover:underline">官方網站</a></p>
+                                <p class="mt-1 text-gray-500 text-sm">參觀日本現存最古老天守。午餐就在城下町解決，品嚐五平餅、飛驒牛握壽司、醬油糰子等特色小吃。</p>
+                                <div class="mt-3 text-sm text-gray-600">
+                                    <p>🕒 交通時間：約 30 分鐘</p>
+                                    <p>💰 預估花費：(交通) 單程 ¥630 / (門票+午餐) ¥2,500-3,500</p>
+                                </div>
+                                <div class="mt-4 p-3 bg-blue-50 border-l-4 border-blue-400 rounded-r-lg">
+                                    <h4 class="font-bold text-blue-800"><i class="fas fa-cloud-rain mr-2"></i>雨天備案</h4>
+                                    <p class="text-sm text-blue-700 mt-1">可改往「<a href='https://www.meijimura.com/chinese-top/' target='_blank' class='font-bold hover:underline'>博物館明治村</a>」。這裡移築並保存了60多座明治時期的建築，多數可入內參觀，相較於開放式的城下町，是更佳的雨天選擇（仍需雨傘在園區移動）。</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="timeline-item relative pl-10">
+                           <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                                <span class="block font-bold text-gray-700 text-base">晚餐</span>
+                                <h3 class="text-xl font-bold mt-1 text-gray-800">🥩 和牛Tanji 焼肉吃到飽</h3>
+                                <p class="mt-1 text-gray-500 text-sm">回到名古屋車站後，到車站附近的「和牛Tanji」享受和牛燒肉吃到飽，犒賞一天的旅途勞累。</p>
+                                <div class="mt-3 text-sm text-gray-600">
+                                    <p>💰 預估花費：¥5,000 - ¥7,000</p>
+                                </div>
+                                <iframe class="map-embed" loading="lazy" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3261.859608552086!2d136.88107931524458!3d35.16029598031826!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x600376d9101d017b%3A0x6b10787d559a4c33!2z5ZKM54mb44K_44Oz44OAIOeUoumjn-iClsS4g-OCs-ODvOOCuA!5e0!3m2!1szh-TW!2stw!4v1699344444666!5m2!1szh-TW!2stw"></iframe>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Day 4 Content -->
+                <div id="day4" class="day-content">
+                    <ul class="timeline">
+                        <li class="timeline-item relative pl-10 pb-8">
+                            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                                <span class="block font-bold text-gray-700 text-base">09:30 - 12:00</span>
+                                <h3 class="text-xl font-bold mt-1 text-gray-800">🏯 名古屋城巡禮</h3>
+                                <p class="mt-2 text-gray-600">📍 <a href="https://www.google.com/maps/search/?api=1&query=名古屋城" target="_blank" class="text-blue-600 hover:underline">名古屋城</a> | ℹ️ <a href="https://www.nagoyajo.city.nagoya.jp/tw/" target="_blank" class="text-blue-600 hover:underline">官方網站</a></p>
+                                <p class="mt-1 text-gray-500 text-sm">欣賞日本三大名城之一的雄偉，以及金碧輝煌的本丸御殿。</p>
+                                <div class="mt-3 text-sm text-gray-600">
+                                    <p>🕒 交通時間：約 10 分鐘</p>
+                                    <p>💰 預估花費：(交通) ¥240 / (門票) ¥500</p>
+                                </div>
+                                <div class="mt-4 p-3 bg-blue-50 border-l-4 border-blue-400 rounded-r-lg">
+                                    <h4 class="font-bold text-blue-800"><i class="fas fa-cloud-rain mr-2"></i>雨天備案</h4>
+                                    <p class="text-sm text-blue-700 mt-1">若天氣不佳，可將下午的大須商店街行程，替換為參觀「<a href='http://www.ncsm.city.nagoya.jp/en/' target='_blank' class='font-bold hover:underline'>名古屋市科學館</a>」，其擁有世界最大的天象儀，是極受歡迎的室內景點。</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="timeline-item relative pl-10 pb-8">
+                           <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                                <span class="block font-bold text-gray-700 text-base">午餐</span>
+                                <h3 class="text-xl font-bold mt-1 text-gray-800">鰻魚飯三吃：まるや本店</h3>
+                                <p class="mt-1 text-gray-500 text-sm">在名古屋車站分店品嚐著名的「鰻魚飯三吃 (ひつまぶし)」，一次享受三種不同風味的鰻魚飯。</p>
+                                <div class="mt-3 text-sm text-gray-600">
+                                    <p>💰 預估花費：¥4,000 - ¥6,000</p>
+                                </div>
+                                <iframe class="map-embed" loading="lazy" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3261.831514869894!2d136.88390931524458!3d35.16099398031806!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x600376c9c8948159%3A0x6f68a27a1a2512f7!2z44G-44KL44KE5pys5bqXIOOBn-S4i-ODreODo-ODs-OCuA!5e0!3m2!1szh-TW!2stw!4v1633582103394!5m2!1szh-TW!2stw"></iframe>
+                            </div>
+                        </li>
+                        <li class="timeline-item relative pl-10 pb-8">
+                           <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                                <span class="block font-bold text-gray-700 text-base">13:30 - 17:00</span>
+                                <h3 class="text-xl font-bold mt-1 text-gray-800">🏮 漫步大須商店街</h3>
+                                <p class="mt-2 text-gray-600">📍 <a href="https://www.google.com/maps/search/?api=1&query=大須商店街" target="_blank" class="text-blue-600 hover:underline">大須商店街</a> | ℹ️ <a href="https://zh.wikipedia.org/wiki/%E5%A4%A7%E9%A0%88%E5%95%86%E5%BA%97%E8%A1%97" target="_blank" class="text-blue-600 hover:underline">維基百科</a></p>
+                                <p class="mt-1 text-gray-500 text-sm">大須商店街是有拱廊的，本身就是絕佳的雨天備案。可以盡情享受逛街與品嚐小吃的樂趣。</p>
+                            </div>
+                        </li>
+                         <li class="timeline-item relative pl-10">
+                           <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                                <span class="block font-bold text-gray-700 text-base">晚餐</span>
+                                <h3 class="text-xl font-bold mt-1 text-gray-800">🌶️ 味仙 (台灣拉麵)</h3>
+                                <p class="mt-1 text-gray-500 text-sm">挑戰名古屋獨創的「台灣拉麵」，以辣味肉燥和韭菜為特色，香辣夠味，是當地人熱愛的重口味美食。</p>
+                                <div class="mt-3 text-sm text-gray-600">
+                                    <p>💰 預估花費：¥1,500 - ¥2,500</p>
+                                </div>
+                                <iframe class="map-embed" loading="lazy" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3261.948287754385!2d136.8837263152445!3d35.15810098031895!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x600376c8c491207d%3A0x6a1c5140b95c3b31!2z5ZGz5LuL5Y-k54-I6Zu75bqX!5e0!3m2!1szh-TW!2stw!4v1633582194680!5m2!1szh-TW!2stw"></iframe>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Day 5 Content -->
+                <div id="day5" class="day-content">
+                    <ul class="timeline">
+                        <li class="timeline-item relative pl-10 pb-8">
+                           <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                                <span class="block font-bold text-gray-700 text-base">早餐</span>
+                                <h3 class="text-xl font-bold mt-1 text-gray-800">🍜 きしめん 住よし (棊子麵)</h3>
+                                <p class="mt-1 text-gray-500 text-sm">在離開名古屋前，到JR車站月台上的立食名店，品嚐道地的「棊子麵」，口感滑順的扁麵搭配柴魚高湯，是完美的日式早餐。</p>
+                               <div class="mt-3 text-sm text-gray-600">
+                                    <p>💰 預估花費：¥600 - ¥1,000</p>
+                                </div>
+                                <iframe class="map-embed" loading="lazy" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3261.849021644754!2d136.88339131524456!3d35.1605669803182!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x600376ddc548c7db%3A0x83827a3c3079b099!2z44GN44GX44KB44KTIOS9m-OCjA!5e0!3m2!1szh-TW!2stw!4v1633582522718!5m2!1szh-TW!2stw"></iframe>
+                            </div>
+                        </li>
+                        <li class="timeline-item relative pl-10 pb-8">
+                            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                                <span class="block font-bold text-gray-700 text-base">09:30 - 12:00</span>
+                                <h3 class="text-xl font-bold mt-1 text-gray-800">🏭 豐田產業技術紀念館</h3>
+                                <p class="mt-2 text-gray-600">📍 <a href="https://www.google.com/maps/search/?api=1&query=トヨタ産業技術記念館" target="_blank" class="text-blue-600 hover:underline">豐田產業技術紀念館</a> | ℹ️ <a href="https://www.tcmit.org/chinese-tw/" target="_blank" class="text-blue-600 hover:underline">官方網站</a></p>
+                                <p class="mt-1 text-gray-500 text-sm">從紡織到汽車，見證日本產業龍頭的發展歷史，互動性十足。這是極佳的室內行程。</p>
+                                <div class="mt-3 text-sm text-gray-600">
+                                    <p>💰 預估花費：(門票) ¥1,000</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="timeline-item relative pl-10 pb-8">
+                           <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                                <span class="block font-bold text-gray-700 text-base">12:00 - 13:30</span>
+                                <h3 class="text-xl font-bold mt-1 text-gray-800">🌳 則武森林 & 午餐</h3>
+                                <p class="mt-2 text-gray-600">📍 <a href="https://www.google.com/maps/search/?api=1&query=ノリタケの森" target="_blank" class="text-blue-600 hover:underline">則武森林</a> | ℹ️ <a href="https://www.noritake.co.jp/mori/" target="_blank" class="text-blue-600 hover:underline">官方網站</a></p>
+                                <p class="mt-1 text-gray-500 text-sm">欣賞精緻的陶瓷工藝。午餐可選擇車站地下街 ESCA 的「鳥開総本家」，品嚐名古屋交趾雞親子丼。</p>
+                                <div class="mt-3 text-sm text-gray-600">
+                                    <p>💰 預估花費：(午餐) ¥1,500 - ¥2,500</p>
+                                </div>
+                                <iframe class="map-embed" loading="lazy" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3261.879008269786!2d136.88081631524453!3d35.15983298031846!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x600376c9b33a7587%3A0x27221b392953284!2z6b6N6ZaA57e05pys5a62IOODk-ODg-OCt-ODvOW6l-S4i-OCgeOCv-OCuA!5e0!3m2!1szh-TW!2stw!4v1633582294158!5m2!1szh-TW!2stw"></iframe>
+                            </div>
+                        </li>
+                         <li class="timeline-item relative pl-10">
+                           <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                                <span class="block font-bold text-gray-700 text-base">14:00 - 15:00</span>
+                                <h3 class="text-xl font-bold mt-1 text-gray-800">✈️ 前往機場</h3>
+                                <p class="mt-2 text-gray-600">📍 <a href="https://www.google.com/maps/search/?api=1&query=中部国際空港" target="_blank" class="text-blue-600 hover:underline">中部國際機場 (NGO)</a></p>
+                                <p class="mt-1 text-gray-500 text-sm">準備搭乘國泰航空 CX531 返回。</p>
+                                <div class="mt-3 text-sm text-gray-600">
+                                    <p>🕒 交通時間：約 28-35 分鐘</p>
+                                    <p>💰 預估花費：¥1,250 (μ-SKY) 或 ¥890 (特急)</p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+
+        <footer class="text-center p-4 text-sm text-gray-500 bg-gray-50 border-t">
+            <p>行程由 Gemini AI 規劃</p>
+        </footer>
     </div>
 
-    <nav id="nav-menu" class="sticky-nav bg-white/90 backdrop-blur-md shadow-sm">
-        <div class="max-w-6xl mx-auto px-4">
-            <div class="flex justify-center items-center h-16 space-x-2 sm:space-x-4 md:space-x-8">
-                <button data-target="day1" class="nav-button text-gray-600 hover:text-amber-800 transition-colors duration-300 font-semibold text-sm sm:text-base px-2">第一天</button>
-                <button data-target="day2" class="nav-button text-gray-600 hover:text-amber-800 transition-colors duration-300 font-semibold text-sm sm:text-base px-2">第二天</button>
-                <button data-target="day3" class="nav-button text-gray-600 hover:text-amber-800 transition-colors duration-300 font-semibold text-sm sm:text-base px-2">第三天</button>
-                <button data-target="day4" class="nav-button text-gray-600 hover:text-amber-800 transition-colors duration-300 font-semibold text-sm sm:text-base px-2">第四天</button>
-                <button data-target="day5" class="nav-button text-gray-600 hover:text-amber-800 transition-colors duration-300 font-semibold text-sm sm:text-base px-2">第五天</button>
-                <span class="text-gray-300">|</span>
-                <button data-target="gourmet-map" class="nav-button text-amber-700 hover:text-amber-900 transition-colors duration-300 font-bold text-sm sm:text-base px-2">美食地圖</button>
-            </div>
-        </div>
-    </nav>
-
-    <main class="max-w-6xl mx-auto p-4 md:p-8">
-        
-        <div id="itinerary">
-            <section id="day1" class="mb-16">
-                <h2 class="text-3xl font-bold mb-6 text-amber-900">Day 1 | 11/23 (日): 抵達 & 榮町夜遊</h2>
-                <div class="pl-6 border-l-4 border-amber-300 space-y-8">
-                    <div class="bg-white p-5 rounded-xl shadow-lg relative">
-                        <div class="absolute -left-9 top-5 h-4 w-4 rounded-full bg-amber-500 border-4 border-white"></div>
-                        <p class="font-bold text-amber-700">15:35 - 17:00</p>
-                        <h3 class="text-xl font-bold mt-1">🛬 抵達機場 & 前往市區</h3>
-                        <p class="mt-2 text-gray-600">抵達<a href="https://www.centrair.jp/tz/" target="_blank" rel="noopener noreferrer">中部國際機場</a>，辦理入境後，搭乘「名鐵μ-SKY列車」前往名古屋車站。</p>
-                        <div class="mt-3 border-t pt-3 text-sm text-gray-500 space-y-1">
-                            <p>➤ <a href="https://www.google.com/maps/dir/?api=1&origin=Chubu+Centrair+International+Airport&destination=Nagoya+Station&travelmode=transit" target="_blank" rel="noopener noreferrer">🗺️ 路線規劃</a>: 中部機場 → 名古屋車站</p>
-                            <p>🚆 交通工具: <a href="https://www.meitetsu.co.jp/train/mu-sky/" target="_blank" rel="noopener noreferrer">名鐵μ-SKY</a> | ⏱️ 預估時間: 約 28 分鐘 | 💴 費用: 1,250 日圓</p>
-                        </div>
-                    </div>
-                    <div class="bg-white p-5 rounded-xl shadow-lg relative">
-                        <div class="absolute -left-9 top-5 h-4 w-4 rounded-full bg-amber-500 border-4 border-white"></div>
-                        <p class="font-bold text-amber-700">17:00 - 18:30</p>
-                        <h3 class="text-xl font-bold mt-1">🏨 飯店 Check-in</h3>
-                        <p class="mt-2 text-gray-600">從名古屋車站步行至 <a href="https://www.daiwaroynet.jp/nagoya-taiko/" target="_blank" rel="noopener noreferrer">Daiwa Roynet Hotel</a> Check-in 並安頓行李。</p>
-                         <div class="mt-3 border-t pt-3 text-sm text-gray-500 space-y-1">
-                            <p>➤ <a href="https://www.google.com/maps/dir/?api=1&origin=Nagoya+Station&destination=Daiwa+Roynet+Hotel+Nagoya+Taiko+dori+Guchi&travelmode=walking" target="_blank" rel="noopener noreferrer">🗺️ 路線規劃</a>: 名古屋車站 → 飯店</p>
-                            <p>🚶 交通工具: 步行 | ⏱️ 預估時間: 約 5-8 分鐘</p>
-                        </div>
-                    </div>
-                    <div class="bg-white p-5 rounded-xl shadow-lg relative">
-                         <div class="absolute -left-9 top-5 h-4 w-4 rounded-full bg-amber-500 border-4 border-white"></div>
-                        <p class="font-bold text-amber-700">18:30 - 20:00</p>
-                        <h3 class="text-xl font-bold mt-1">🍻 晚餐：<a href="https://www.yamachan.co.jp/" target="_blank" rel="noopener noreferrer">世界の山ちゃん</a></h3>
-                        <p class="mt-2 text-gray-600">品嚐名古屋道地的夢幻雞翅 (手羽先)，感受居酒屋的熱鬧氣氛。</p>
-                    </div>
-                    <div class="bg-white p-5 rounded-xl shadow-lg relative">
-                         <div class="absolute -left-9 top-5 h-4 w-4 rounded-full bg-amber-500 border-4 border-white"></div>
-                        <p class="font-bold text-amber-700">20:00 - 22:00</p>
-                        <h3 class="text-xl font-bold mt-1">🌃 夜遊榮町</h3>
-                        <p class="mt-2 text-gray-600">參觀 <a href="https://www.sakaepark.co.jp/" target="_blank" rel="noopener noreferrer">綠洲21</a> 與 <a href="https://www.nagoya-tv-tower.co.jp/" target="_blank" rel="noopener noreferrer">名古屋電視塔</a>，欣賞名古屋的璀璨夜景。</p>
-                        <div class="mt-3 border-t pt-3 text-sm text-gray-500 space-y-1">
-                            <p>➤ <a href="https://www.google.com/maps/dir/?api=1&origin=Daiwa+Roynet+Hotel+Nagoya+Taiko+dori+Guchi&destination=Oasis+21,+Nagoya&travelmode=transit" target="_blank" rel="noopener noreferrer">🗺️ 路線規劃</a>: 飯店 → 綠洲21</p>
-                            <p>🚇 交通工具: 地下鐵東山線 | ⏱️ 預估時間: 約 15 分鐘</p>
-                            <p>🕒 建議停留: 1.5 - 2 小時 | 💴 門票: 電視塔 1,300 日圓</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            
-            <section id="day2" class="mb-16">
-                <h2 class="text-3xl font-bold mb-6 text-amber-900">Day 2 | 11/24 (一): 吉卜力奇幻日</h2>
-                <div class="pl-6 border-l-4 border-amber-300 space-y-8">
-                     <div class="bg-white p-5 rounded-xl shadow-lg relative">
-                        <div class="absolute -left-9 top-5 h-4 w-4 rounded-full bg-amber-500 border-4 border-white"></div>
-                        <p class="font-bold text-amber-700">08:00 - 09:00</p>
-                        <h3 class="text-xl font-bold mt-1">☕️ 早餐：<a href="https://www.komeda.co.jp/" target="_blank" rel="noopener noreferrer">コメダ珈琲</a></h3>
-                        <p class="mt-2 text-gray-600">體驗名古屋獨特的早餐文化：點一杯飲料就送吐司。</p>
-                    </div>
-                     <div class="bg-white p-5 rounded-xl shadow-lg relative">
-                        <div class="absolute -left-9 top-5 h-4 w-4 rounded-full bg-amber-500 border-4 border-white"></div>
-                        <p class="font-bold text-amber-700">10:00 - 17:00</p>
-                        <h3 class="text-xl font-bold mt-1">🌳 全日暢遊<a href="https://ghibli-park.jp/" target="_blank" rel="noopener noreferrer">吉卜力公園</a></h3>
-                        <p class="mt-2 text-gray-600">準備好整天沉浸在宮崎駿的奇幻世界！午餐於園區內解決。</p>
-                        <div class="mt-3 border-t pt-3 text-sm text-gray-500 space-y-1">
-                             <p>➤ <a href="https://www.google.com/maps/dir/?api=1&origin=Meitetsu+Bus+Center,+Nagoya&destination=Ghibli+Park,+Nagakute&travelmode=transit" target="_blank" rel="noopener noreferrer">🗺️ 路線規劃</a>: 名鐵巴士中心 → 吉卜力公園</p>
-                            <p>🚌 交通工具: 直達巴士 | ⏱️ 預估時間: 約 50 分鐘 | 💴 費用: 約 1,000 日圓</p>
-                            <p>🕒 建議停留: 6 - 7 小時 | ⚠️ <strong class="text-red-600">門票需提前數月在官網預約</strong></p>
-                        </div>
-                    </div>
-                     <div class="bg-white p-5 rounded-xl shadow-lg relative">
-                        <div class="absolute -left-9 top-5 h-4 w-4 rounded-full bg-amber-500 border-4 border-white"></div>
-                        <p class="font-bold text-amber-700">18:30 - 20:00</p>
-                        <h3 class="text-xl font-bold mt-1">🥩 晚餐：<a href="https://www.yabaton.com/" target="_blank" rel="noopener noreferrer">矢場とん</a></h3>
-                        <p class="mt-2 text-gray-600">返回市區後，享用名古屋必吃的經典美食：味噌豬排。</p>
-                    </div>
-                </div>
-            </section>
-            
-            <section id="day3" class="mb-16">
-                 <h2 class="text-3xl font-bold mb-6 text-amber-900">Day 3 | 11/25 (二): 國寶犬山城下町</h2>
-                 <div class="pl-6 border-l-4 border-amber-300 space-y-8">
-                     <div class="bg-white p-5 rounded-xl shadow-lg relative">
-                        <div class="absolute -left-9 top-5 h-4 w-4 rounded-full bg-amber-500 border-4 border-white"></div>
-                        <p class="font-bold text-amber-700">10:30 - 14:00</p>
-                        <h3 class="text-xl font-bold mt-1">🏯 <a href="https://inuyama-castle.jp/" target="_blank" rel="noopener noreferrer">國寶犬山城</a> & <a href="https://inuyama.gr.jp/" target="_blank" rel="noopener noreferrer">城下町</a></h3>
-                        <p class="mt-2 text-gray-600">參觀日本現存最古老木造天守，並在懷舊的城下町品嚐小吃作為午餐。</p>
-                        <div class="mt-3 border-t pt-3 text-sm text-gray-500 space-y-1">
-                             <p>➤ <a href="https://www.google.com/maps/dir/?api=1&origin=Nagoya+Station&destination=Inuyama+Castle&travelmode=transit" target="_blank" rel="noopener noreferrer">🗺️ 路線規劃</a>: 名古屋車站 → 犬山城</p>
-                            <p>🚆 交通工具: 名鐵犬山線 | ⏱️ 預估時間: 約 40 分鐘</p>
-                             <p>🕒 建議停留: 3 - 3.5 小時 | 💴 交通套票: 約 1,380 日圓 (含門票)</p>
-                        </div>
-                    </div>
-                    <div class="bg-white p-5 rounded-xl shadow-lg relative">
-                        <div class="absolute -left-9 top-5 h-4 w-4 rounded-full bg-amber-500 border-4 border-white"></div>
-                        <p class="font-bold text-amber-700">14:00 後</p>
-                        <h3 class="text-xl font-bold mt-1">🛍️ 返回市區 & 自由購物</h3>
-                        <p class="mt-2 text-gray-600">返回名古屋市區後，享受自由的購物時光。</p>
-                    </div>
-                    <div class="bg-white p-5 rounded-xl shadow-lg relative">
-                        <div class="absolute -left-9 top-5 h-4 w-4 rounded-full bg-amber-500 border-4 border-white"></div>
-                        <p class="font-bold text-amber-700">19:00 - 20:30</p>
-                        <h3 class="text-xl font-bold mt-1">🍚 晚餐：<a href="https://www.maruya-honten.com/" target="_blank" rel="noopener noreferrer">まるや本店</a></h3>
-                        <p class="mt-2 text-gray-600">品嚐名古屋終極美食「鰻魚飯三吃」，體驗一種料理多重享受的樂趣。</p>
-                    </div>
-                 </div>
-            </section>
-            
-            <section id="day4" class="mb-16">
-                 <h2 class="text-3xl font-bold mb-6 text-amber-900">Day 4 | 11/26 (三): 名古屋城與潮流文化</h2>
-                 <div class="pl-6 border-l-4 border-amber-300 space-y-8">
-                     <div class="bg-white p-5 rounded-xl shadow-lg relative">
-                        <div class="absolute -left-9 top-5 h-4 w-4 rounded-full bg-amber-500 border-4 border-white"></div>
-                        <p class="font-bold text-amber-700">09:30 - 12:00</p>
-                        <h3 class="text-xl font-bold mt-1">🏰 參觀<a href="https://www.nagoyajo.city.nagoya.jp/" target="_blank" rel="noopener noreferrer">名古屋城</a></h3>
-                        <p class="mt-2 text-gray-600">參觀名古屋的象徵地標，欣賞金鯱與華麗的本丸御殿。</p>
-                         <div class="mt-3 border-t pt-3 text-sm text-gray-500 space-y-1">
-                             <p>➤ <a href="https://www.google.com/maps/dir/?api=1&origin=Nagoya+Station&destination=Nagoya+Castle&travelmode=transit" target="_blank" rel="noopener noreferrer">🗺️ 路線規劃</a>: 名古屋車站 → 名古屋城</p>
-                            <p>🚇 交通工具: 地下鐵 | ⏱️ 預估時間: 約 15 分鐘</p>
-                             <p>🕒 建議停留: 2 - 2.5 小時 | 💴 門票: 500 日圓 | 🎟️ 交通券: 地鐵24小時券 (760 日圓)</p>
-                        </div>
-                    </div>
-                     <div class="bg-white p-5 rounded-xl shadow-lg relative">
-                        <div class="absolute -left-9 top-5 h-4 w-4 rounded-full bg-amber-500 border-4 border-white"></div>
-                        <p class="font-bold text-amber-700">12:30 - 17:00</p>
-                        <h3 class="text-xl font-bold mt-1">🚶 探索<a href="https://osu.co.jp/" target="_blank" rel="noopener noreferrer">大須商店街</a></h3>
-                        <p class="mt-2 text-gray-600">於大須商店街解決午餐，並深入探索這個充滿活力與多元文化的地區。別忘了去「<a href="https://www.pokemon.co.jp/shop/pokecen/nagoya/" target="_blank" rel="noopener noreferrer">寶可夢中心</a>」朝聖！</p>
-                         <div class="mt-3 border-t pt-3 text-sm text-gray-500 space-y-1">
-                             <p>➤ <a href="https://www.google.com/maps/dir/?api=1&origin=Nagoya+Castle&destination=Osu+Shopping+District,+Nagoya&travelmode=transit" target="_blank" rel="noopener noreferrer">🗺️ 路線規劃</a>: 名古屋城 → 大須商店街</p>
-                            <p>🚇 交通工具: 地下鐵 | ⏱️ 預估時間: 約 10 分鐘</p>
-                            <p>🕒 建議停留: 4 - 4.5 小時 (含午餐)</p>
-                        </div>
-                    </div>
-                    <div class="bg-white p-5 rounded-xl shadow-lg relative">
-                        <div class="absolute -left-9 top-5 h-4 w-4 rounded-full bg-amber-500 border-4 border-white"></div>
-                        <p class="font-bold text-amber-700">19:00 - 20:30</p>
-                        <h3 class="text-xl font-bold mt-1">🍜 晚餐：<a href="http://yamamotoya.co.jp/" target="_blank" rel="noopener noreferrer">山本屋総本家</a></h3>
-                        <p class="mt-2 text-gray-600">體驗道地的土鍋味噌烏龍麵，麵條口感偏硬是其一大特色。</p>
-                    </div>
-                 </div>
-            </section>
-
-            <section id="day5" class="mb-16">
-                <h2 class="text-3xl font-bold mb-6 text-amber-900">Day 5 | 11/27 (四): 工業見學與歸途</h2>
-                <div class="pl-6 border-l-4 border-amber-300 space-y-8">
-                    <div class="bg-white p-5 rounded-xl shadow-lg relative">
-                        <div class="absolute -left-9 top-5 h-4 w-4 rounded-full bg-amber-500 border-4 border-white"></div>
-                        <p class="font-bold text-amber-700">10:00 - 12:30</p>
-                        <h3 class="text-xl font-bold mt-1">🏭 <a href="https://www.tcmit.org/" target="_blank" rel="noopener noreferrer">TOYOTA產業技術紀念館</a></h3>
-                        <p class="mt-2 text-gray-600">於飯店 Check-out 並寄存行李後前往參觀，館內互動設施豐富。</p>
-                         <div class="mt-3 border-t pt-3 text-sm text-gray-500 space-y-1">
-                             <p>➤ <a href="https://www.google.com/maps/dir/?api=1&origin=Nagoya+Station&destination=Toyota+Commemorative+Museum+of+Industry+and+Technology&travelmode=transit" target="_blank" rel="noopener noreferrer">🗺️ 路線規劃</a>: 名古屋車站 → 紀念館</p>
-                            <p>🚆 交通工具: 名鐵名古屋本線 | ⏱️ 預估時間: 約 3 分鐘 | 💴 費用: 170 日圓</p>
-                            <p>🕒 建議停留: 2 - 2.5 小時 | 💴 門票: 1,000 日圓</p>
-                        </div>
-                    </div>
-                    <div class="bg-white p-5 rounded-xl shadow-lg relative">
-                        <div class="absolute -left-9 top-5 h-4 w-4 rounded-full bg-amber-500 border-4 border-white"></div>
-                        <p class="font-bold text-amber-700">14:00 - 14:40</p>
-                        <h3 class="text-xl font-bold mt-1">🛫 前往機場 & 賦歸</h3>
-                        <p class="mt-2 text-gray-600">回飯店領取行李後前往機場。若時間充裕，可逛逛「<a href="https://www.flightofdreams.jp/" target="_blank" rel="noopener noreferrer">波音博物館</a>」。準備搭乘 16:40 的班機！</p>
-                         <div class="mt-3 border-t pt-3 text-sm text-gray-500 space-y-1">
-                            <p>➤ <a href="https://www.google.com/maps/dir/?api=1&origin=Nagoya+Station&destination=Chubu+Centrair+International+Airport&travelmode=transit" target="_blank" rel="noopener noreferrer">🗺️ 路線規劃</a>: 名古屋車站 → 中部機場</p>
-                            <p>🚆 交通工具: 名鐵μ-SKY | ⏱️ 預估時間: 約 28 分鐘 | 💴 費用: 1,250 日圓</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-        
-        <section id="gourmet-map" class="pt-8">
-            <h2 class="text-3xl font-bold mb-4 text-center text-amber-900">📍 互動美食地圖</h2>
-            <p class="text-center text-gray-600 mb-6">點擊下方按鈕篩選您感興趣的美食類別！</p>
-            <div id="filter-container" class="flex flex-wrap justify-center gap-2 mb-8">
-                <button class="filter-btn active bg-gray-200 text-gray-800 px-4 py-2 rounded-full text-sm font-semibold transition" data-filter="all">全部顯示</button>
-                <button class="filter-btn bg-gray-200 text-gray-800 px-4 py-2 rounded-full text-sm font-semibold transition" data-filter="main-dish">主食</button>
-                <button class="filter-btn bg-gray-200 text-gray-800 px-4 py-2 rounded-full text-sm font-semibold transition" data-filter="snack">小吃</button>
-                <button class="filter-btn bg-gray-200 text-gray-800 px-4 py-2 rounded-full text-sm font-semibold transition" data-filter="cafe">咖啡廳</button>
-                <button class="filter-btn bg-gray-200 text-gray-800 px-4 py-2 rounded-full text-sm font-semibold transition" data-filter="seafood">海鮮</button>
-            </div>
-            
-            <div id="gourmet-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="gourmet-card bg-white rounded-xl shadow-lg overflow-hidden" data-category="snack">
-                    <iframe class="w-full h-64" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3261.854033109315!2d136.8790076763428!3d35.16016665922312!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x600376d8df2582e9%3A0x6a0c5c1f0e470c2a!2z5LiW54mp44Gu5bGx44Gh44KTWHVlLUlDaGkgWWFtYS1jaGFuIE5hZ295YSBTdGF0aW9uIFRhaWtvLWRvcmkgR3VjaGkgU3RvcmU!5e0!3m2!1sen!2stw!4v1727998897589!5m2!1sen!2stw" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                    <div class="p-5">
-                        <h3 class="text-xl font-bold"><a href="https://maps.app.goo.gl/7r5U8cQx4JvY5S2S9" target="_blank" rel="noopener noreferrer">世界の山ちゃん</a></h3>
-                        <p class="text-gray-600 mt-1">推薦：夢幻雞翅 (幻の手羽先)</p>
-                    </div>
-                </div>
-                <div class="gourmet-card bg-white rounded-xl shadow-lg overflow-hidden" data-category="cafe">
-                    <iframe class="w-full h-64" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3261.9427017631383!2d136.8804257763427!3d35.15783325934423!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x600376ce523c035d%3A0xc3b846e4c203b86c!2sKomeda's%20Coffee%20Esca!5e0!3m2!1sen!2stw!4v1727998963494!5m2!1sen!2stw" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                    <div class="p-5">
-                        <h3 class="text-xl font-bold"><a href="https://maps.app.goo.gl/m3h1yMv42aX6k98y6" target="_blank" rel="noopener noreferrer">コメダ珈琲</a></h3>
-                        <p class="text-gray-600 mt-1">推薦：小倉紅豆吐司</p>
-                    </div>
-                </div>
-                <div class="gourmet-card bg-white rounded-xl shadow-lg overflow-hidden" data-category="main-dish">
-                     <iframe class="w-full h-64" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3261.941926767576!2d136.8804603763427!3d35.15785295934278!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x600376ce523c035d%3A0x803526a0525ce01a!2sYabaton%20Nagoya%20Station%20Esca%20Branch!5e0!3m2!1sen!2stw!4v1727999014521!5m2!1sen!2stw" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                     <div class="p-5">
-                        <h3 class="text-xl font-bold"><a href="https://maps.app.goo.gl/9h2b8K8k2o23YqK58" target="_blank" rel="noopener noreferrer">矢場とん</a></h3>
-                        <p class="text-gray-600 mt-1">推薦：鐵板味噌豬排 (鉄板とんかつ)</p>
-                    </div>
-                </div>
-                <div class="gourmet-card bg-white rounded-xl shadow-lg overflow-hidden" data-category="main-dish seafood">
-                     <iframe class="w-full h-64" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3261.859663489111!2d136.8829478763428!3d35.15999815923946!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x600376d200424597%3A0xb306915019a7182d!2sMaruya%20Honten%20JR%20Nagoya%20Station!5e0!3m2!1sen!2stw!4v1727999059080!5m2!1sen!2stw" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                    <div class="p-5">
-                        <h3 class="text-xl font-bold"><a href="https://maps.app.goo.gl/hGz7S9p3S2z8j5Xv5" target="_blank" rel="noopener noreferrer">まるや本店</a></h3>
-                        <p class="text-gray-600 mt-1">推薦：鰻魚飯三吃 (ひつまぶし)</p>
-                    </div>
-                </div>
-                 <div class="gourmet-card bg-white rounded-xl shadow-lg overflow-hidden" data-category="snack">
-                     <iframe class="w-full h-64" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3251.3653140598744!2d136.93666507635292!3d35.42171174360342!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60030c6c738c8235%3A0x6cc8a86a6350f881!2sInuyama%20Castle%20Town!5e0!3m2!1sen!2stw!4v1727999120689!5m2!1sen!2stw" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                    <div class="p-5">
-                        <h3 class="text-xl font-bold"><a href="https://maps.app.goo.gl/25Bv65wYt9nKqEa66" target="_blank" rel="noopener noreferrer">犬山城下町</a></h3>
-                        <p class="text-gray-600 mt-1">推薦：五平餅、飛驒牛壽司</p>
-                    </div>
-                </div>
-                <div class="gourmet-card bg-white rounded-xl shadow-lg overflow-hidden" data-category="main-dish">
-                    <iframe class="w-full h-64" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3261.353721327318!2d136.90800647634326!3d35.17282125829636!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x600370d10b171f11%3A0x73552945d43e528b!2sYamamotoyasohonke!5e0!3m2!1sen!2stw!4v1727999182393!5m2!1sen!2stw" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                    <div class="p-5">
-                        <h3 class="text-xl font-bold"><a href="https://maps.app.goo.gl/H4oT86uQn57zN8949" target="_blank" rel="noopener noreferrer">山本屋総本家</a></h3>
-                        <p class="text-gray-600 mt-1">推薦：土鍋味噌烏龍麵</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer class="bg-stone-800 text-white text-center p-6 mt-8">
-        <p>祝大家旅途愉快，滿載而歸！</p>
-        <p class="text-xs text-stone-400 mt-2">Nagoya Itinerary Generator - 2025</p>
-    </footer>
-
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Smooth Scrolling
-            const navButtons = document.querySelectorAll('.nav-button');
-            const navMenu = document.getElementById('nav-menu');
-
-            navButtons.forEach(button => {
-                button.addEventListener('click', function () {
-                    const targetId = this.getAttribute('data-target');
-                    const targetSection = document.getElementById(targetId);
-
-                    if (targetSection) {
-                        const navHeight = navMenu.offsetHeight;
-                        const targetPosition = targetSection.getBoundingClientRect().top + window.pageYOffset - navHeight - 20; // Add some offset
-                        
-                        window.scrollTo({
-                            top: targetPosition,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
+        function showDay(event, dayId) {
+            // Hide all day content
+            document.querySelectorAll('.day-content').forEach(content => {
+                content.classList.remove('active');
             });
 
-            // Gourmet Filter
-            const filterContainer = document.getElementById('filter-container');
-            const filterButtons = filterContainer.querySelectorAll('.filter-btn');
-            const gourmetCards = document.querySelectorAll('.gourmet-card');
-
-            filterContainer.addEventListener('click', function(event) {
-                const target = event.target;
-                if (!target.classList.contains('filter-btn')) return;
-
-                filterButtons.forEach(btn => btn.classList.remove('active'));
-                target.classList.add('active');
-
-                const filter = target.getAttribute('data-filter');
-
-                gourmetCards.forEach(card => {
-                    const categories = card.getAttribute('data-category');
-                    if (filter === 'all' || categories.includes(filter)) {
-                        card.classList.remove('hidden');
-                    } else {
-                        card.classList.add('hidden');
-                    }
-                });
+            // Deactivate all tabs
+            document.querySelectorAll('.tab-btn').forEach(button => {
+                button.classList.remove('active');
             });
-        });
+
+            // Show the selected day content
+            document.getElementById(dayId).classList.add('active');
+
+            // Activate the clicked tab
+            event.currentTarget.classList.add('active');
+        }
     </script>
 
 </body>
