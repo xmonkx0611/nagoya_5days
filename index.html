@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>名古屋5日遊 v0.16 (AI增強版)</title>
+    <title>名古屋5日遊 v0.18</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -72,27 +72,13 @@
             margin-top: 0.75rem;
             font-size: 0.875rem;
         }
-        #ai-modal-content .loader {
-            width: 48px;
-            height: 48px;
-            border: 5px solid #FFF;
-            border-bottom-color: #FF3D00;
-            border-radius: 50%;
-            display: inline-block;
-            box-sizing: border-box;
-            animation: rotation 1s linear infinite;
-        }
-        @keyframes rotation {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
     </style>
 </head>
 <body class="bg-gray-100 p-2 sm:p-5">
 
     <div class="max-w-7xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
         <header class="bg-gray-800 text-white p-6 text-center">
-            <h1 class="text-3xl md:text-4xl font-bold">名古屋5日遊 (AI增強版)</h1>
+            <h1 class="text-3xl md:text-4xl font-bold">名古屋5日遊 v0.18</h1>
             <p class="text-gray-300 mt-2">2025年11月23日 - 2025年11月27日</p>
         </header>
 
@@ -120,18 +106,13 @@
                     </div>
                     <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r-lg">
                         <h4 class="font-bold text-yellow-800"><i class="fas fa-bus-alt mr-2"></i>交通與花費小提示</h4>
-                        <p class="text-sm text-yellow-700 mt-1">在市區觀光日 (Day 4)，若搭乘地鐵超過3次，建議購買地鐵一日券 (平日¥760 / 假日¥620)，會比單次購票划算。</p>
+                        <p class="text-sm text-yellow-700 mt-1">在市區觀光日，若搭乘地鐵超過3次，建議購買地鐵一日券 (平日¥760 / 假日¥620)，會比單次購票划算。</p>
                     </div>
                 </div>
 
 
                 <!-- Day 1 Content -->
                 <div id="day1" class="day-content active">
-                    <div class="text-center mb-4">
-                        <button onclick="getItinerarySummary('day1')" class="bg-gradient-to-r from-purple-500 to-indigo-500 text-white font-bold py-2 px-4 rounded-full hover:shadow-lg transition-all duration-300">
-                            ✨ AI 產生當日提醒
-                        </button>
-                    </div>
                     <ul class="timeline">
                         <li class="timeline-item relative pl-10 pb-8">
                             <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
@@ -176,8 +157,12 @@
                                     <p>💰 預估花費：(地鐵) ¥210 / (電視塔門票) 約 ¥1,300</p>
                                     <p><i class="fas fa-clock mr-1 text-gray-500"></i><b>營業時間：</b>[綠洲21商店] 10:00-21:00 [電視塔] 10:00-21:00</p>
                                 </div>
-                                <div class="mt-2">
-                                     <button onclick="getActivitySuggestion('榮商圈')" class="text-sm bg-blue-100 text-blue-700 px-3 py-1 rounded-full hover:bg-blue-200 transition">✨ AI 活動建議</button>
+                                <div class="mt-4 p-3 bg-rose-50 border-l-4 border-rose-400 rounded-r-lg">
+                                    <h4 class="font-bold text-rose-800"><i class="fas fa-cookie-bite mr-2"></i>周邊美食亮點</h4>
+                                    <ul class="text-sm text-rose-700 mt-1 list-disc list-inside space-y-1">
+                                        <li><b>HARBS 栄本店:</b> 名古屋必吃的超人氣水果千層蛋糕發源地，絕對值得朝聖。</li>
+                                        <li><b>一蘭拉麵:</b> 經典的豚骨拉麵，位於電視塔附近，是宵夜的好選擇。</li>
+                                    </ul>
                                 </div>
                             </div>
                         </li>
@@ -191,9 +176,6 @@
                                     <p>💰 預估花費：(晚餐) ¥6,000-9,000</p>
                                     <p><i class="fas fa-clock mr-1 text-gray-500"></i><b>營業時間：</b>約 17:00 - 23:00</p>
                                 </div>
-                                 <div class="mt-2">
-                                     <button onclick="getFoodSuggestion('伏見')" class="text-sm bg-purple-100 text-purple-700 px-3 py-1 rounded-full hover:bg-purple-200 transition">✨ AI 美食推薦</button>
-                                </div>
                                 <iframe class="map-embed" loading="lazy" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3261.649390547475!2d136.8973693152447!3d35.16556598031699!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x600370d9703d15ef%3A0x152277d3f9f9d150!2z54K554Gr54S86IKJIOalteaAn-WgtOagvOeVqiDliY3pmYg!5e0!3m2!1szh-TW!2stw!4v1699344444555!5m2!1szh-TW!2stw"></iframe>
                             </div>
                         </li>
@@ -203,22 +185,17 @@
 
                 <!-- Day 2 Content -->
                 <div id="day2" class="day-content">
-                    <div class="text-center mb-4">
-                        <button onclick="getItinerarySummary('day2')" class="bg-gradient-to-r from-purple-500 to-indigo-500 text-white font-bold py-2 px-4 rounded-full hover:shadow-lg transition-all duration-300">
-                            ✨ AI 產生當日提醒
-                        </button>
-                    </div>
                      <ul class="timeline">
                         <li class="timeline-item relative pl-10 pb-8">
                             <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                                <span class="block font-bold text-gray-700 text-base">08:00 早餐</span>
-                                <h3 class="text-xl font-bold mt-1 text-gray-800">🥐 Komeda's Coffee (コメダ珈琲店)</h3>
-                                <p class="mt-1 text-gray-500 text-sm">體驗名古屋獨特的「點飲料送早餐」文化。</p>
+                                <span class="block font-bold text-gray-700 text-base">08:30 早餐</span>
+                                <h3 class="text-xl font-bold mt-1 text-gray-800">🍤 コンパル (Komparu) Sunroad店</h3>
+                                <p class="mt-1 text-gray-500 text-sm">位於名古屋車站地下街，非常方便。推薦必點招牌「炸蝦三明治」。</p>
                                 <div class="mt-3 text-sm text-gray-600 space-y-1">
-                                    <p>💰 預估花費：¥800 - ¥1,200</p>
-                                    <p><i class="fas fa-clock mr-1 text-gray-500"></i><b>營業時間：</b>約 07:00 - 23:00</p>
+                                    <p>💰 預估花費：¥1,000 - ¥1,500</p>
+                                    <p><i class="fas fa-clock mr-1 text-gray-500"></i><b>營業時間：</b>08:00 - 21:00</p>
                                 </div>
-                                <iframe class="map-embed" loading="lazy" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3261.89862592188!2d136.8804823152445!3d35.15934178031861!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x600376c9b68a86a1%3A0xf64f3a55c32ab7b2!2z44Kz44Oh44OA54-I546L5bqXIOOCpuOCv-OCuOODs-ODiOODleODquODg-ODiA!5e0!3m2!1szh-TW!2stw!4v1633581699945!5m2!1szh-TW!2stw"></iframe>
+                                <iframe class="map-embed" loading="lazy" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3261.737081759618!2d136.88372631524462!3d35.16335098031737!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x600376c9e995c079%3A0x6233b5c656306a73!2z44Kz44Oz44OR44Or!5e0!3m2!1szh-TW!2stw!4v1633581896798!5m2!1szh-TW!2stw"></iframe>
                             </div>
                         </li>
                         <li class="timeline-item relative pl-10 pb-8">
@@ -242,15 +219,31 @@
                         </li>
                          <li class="timeline-item relative pl-10 pb-8">
                            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                                <span class="block font-bold text-gray-700 text-base">18:30 晚餐</span>
+                                <span class="block font-bold text-gray-700 text-base">17:30 onwards</span>
+                                <h3 class="text-xl font-bold mt-1 text-gray-800">🛍️ 榮商圈 & 名古屋PARCO</h3>
+                                <p class="mt-2 text-gray-600">📍 <a href="https://nagoya.parco.jp/" target="_blank" class="text-blue-600 hover:underline">名古屋PARCO</a></p>
+                                <p class="mt-1 text-gray-500 text-sm">返回市區後，前往年輕人聚集的潮流百貨PARCO逛街。</p>
+                                <div class="mt-3 text-sm text-gray-600 space-y-1">
+                                    <p><i class="fas fa-clock mr-1 text-gray-500"></i><b>營業時間：</b>10:00 - 21:00</p>
+                                </div>
+                                <div class="mt-4 p-3 bg-rose-50 border-l-4 border-rose-400 rounded-r-lg">
+                                    <h4 class="font-bold text-rose-800"><i class="fas fa-cookie-bite mr-2"></i>周邊美食亮點</h4>
+                                    <p class="text-sm text-rose-700 mt-1"><b>HARBS 栄本店</b> 就在PARCO附近，逛完街可以去享用下午茶。</p>
+                                </div>
+                            </div>
+                        </li>
+                         <li class="timeline-item relative pl-10 pb-8">
+                           <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                                <span class="block font-bold text-gray-700 text-base">19:00 晚餐</span>
                                 <h3 class="text-xl font-bold mt-1 text-gray-800">鰻魚飯三吃：まるや本店</h3>
                                 <p class="mt-1 text-gray-500 text-sm">返回名古屋車站後，品嚐著名的「鰻魚飯三吃 (ひつまぶし)」。</p>
                                 <div class="mt-3 text-sm text-gray-600 space-y-1">
                                     <p>💰 預估花費：¥4,000 - ¥6,000</p>
                                     <p><i class="fas fa-clock mr-1 text-gray-500"></i><b>營業時間：</b>11:00 - 23:00</p>
                                 </div>
-                                <div class="mt-2">
-                                     <button onclick="getFoodSuggestion('名古屋車站')" class="text-sm bg-purple-100 text-purple-700 px-3 py-1 rounded-full hover:bg-purple-200 transition">✨ AI 美食推薦</button>
+                                 <div class="mt-4 p-3 bg-rose-50 border-l-4 border-rose-400 rounded-r-lg">
+                                    <h4 class="font-bold text-rose-800"><i class="fas fa-birthday-cake mr-2"></i>餐後甜點推薦</h4>
+                                    <p class="text-sm text-rose-700 mt-1">若吃完鰻魚飯還意猶未盡，可至名鐵百貨內的 <b>HARBS</b> 外帶一塊水果千層蛋糕回飯店享用。</p>
                                 </div>
                                 <iframe class="map-embed" loading="lazy" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3261.831514869894!2d136.88390931524458!3d35.16099398031806!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x600376c9c8948159%3A0x6f68a27a1a2512f7!2z44G-44KL44KE5pys5bqXIOOBn-S4i-ODreODo-ODs-OCuA!5e0!3m2!1szh-TW!2stw!4v1633582103394!5m2!1szh-TW!2stw"></iframe>
                             </div>
@@ -261,22 +254,17 @@
 
                 <!-- Day 3 Content -->
                 <div id="day3" class="day-content">
-                    <div class="text-center mb-4">
-                        <button onclick="getItinerarySummary('day3')" class="bg-gradient-to-r from-purple-500 to-indigo-500 text-white font-bold py-2 px-4 rounded-full hover:shadow-lg transition-all duration-300">
-                            ✨ AI 產生當日提醒
-                        </button>
-                    </div>
                      <ul class="timeline">
                          <li class="timeline-item relative pl-10 pb-8">
                             <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
                                 <span class="block font-bold text-gray-700 text-base">08:30 早餐</span>
-                                <h3 class="text-xl font-bold mt-1 text-gray-800">🍤 コンパル (Komparu)</h3>
-                                <p class="mt-1 text-gray-500 text-sm">前往昭和時代創立的老牌喫茶店，品嚐名古屋特有的炸蝦三明治。</p>
+                                <h3 class="text-xl font-bold mt-1 text-gray-800">☕️ 星乃珈琲店 (Hoshino Coffee)</h3>
+                                <p class="mt-1 text-gray-500 text-sm">以手沖咖啡和窯烤舒芙蕾厚鬆餅聞名的人氣咖啡店，享受悠閒的早餐時光。</p>
                                 <div class="mt-3 text-sm text-gray-600 space-y-1">
-                                    <p>💰 預估花費：¥1,000 - ¥1,500</p>
-                                    <p><i class="fas fa-clock mr-1 text-gray-500"></i><b>營業時間：</b>08:00 - 21:00</p>
+                                    <p>💰 預估花費：¥1,000 - ¥1,800</p>
+                                    <p><i class="fas fa-clock mr-1 text-gray-500"></i><b>營業時間：</b>08:00 - 22:00</p>
                                 </div>
-                                <iframe class="map-embed" loading="lazy" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3261.737081759618!2d136.88372631524462!3d35.16335098031737!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x600376c9e995c079%3A0x6233b5c656306a73!2z44Kz44Oz44OR44Or!5e0!3m2!1szh-TW!2stw!4v1633581896798!5m2!1szh-TW!2stw"></iframe>
+                                <iframe class="map-embed" loading="lazy" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3261.710115380598!2d136.8845180152446!3d35.16401588031718!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x600376ca74311899%3A0x8e097415d55e3474!2sHoshino%20Coffee%20Nagoya%20Unimall!5e0!3m2!1sen!2sjp!4v1700030589285!5m2!1sen!2sjp"></iframe>
                             </div>
                         </li>
                         <li class="timeline-item relative pl-10 pb-8">
@@ -302,8 +290,9 @@
                                         <img src="https://lh5.googleusercontent.com/p/AF1QipM5C9XQy71pG1y_2Y2GjF1z_w0x9v8Z3kY7d0rA=w408-h306-k-no" alt="三光稻荷神社的心型繪馬">
                                     </div>
                                 </div>
-                                 <div class="mt-2">
-                                     <button onclick="getActivitySuggestion('犬山城下町')" class="text-sm bg-blue-100 text-blue-700 px-3 py-1 rounded-full hover:bg-blue-200 transition">✨ AI 活動建議</button>
+                                <div class="mt-4 p-3 bg-rose-50 border-l-4 border-rose-400 rounded-r-lg">
+                                    <h4 class="font-bold text-rose-800"><i class="fas fa-cookie-bite mr-2"></i>人氣甜點</h4>
+                                    <p class="text-sm text-rose-700 mt-1"><b>茶処くらや:</b> 販售在社群媒體上爆紅的「恋小町だんご」，色彩繽紛的糰子非常可愛，是打卡必備甜點。</p>
                                 </div>
                             </div>
                         </li>
@@ -326,58 +315,70 @@
 
                 <!-- Day 4 Content -->
                 <div id="day4" class="day-content">
-                    <div class="text-center mb-4">
-                        <button onclick="getItinerarySummary('day4')" class="bg-gradient-to-r from-purple-500 to-indigo-500 text-white font-bold py-2 px-4 rounded-full hover:shadow-lg transition-all duration-300">
-                            ✨ AI 產生當日提醒
-                        </button>
-                    </div>
                     <ul class="timeline">
                          <li class="timeline-item relative pl-10 pb-8">
                             <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                                <span class="block font-bold text-gray-700 text-base">09:00 - 10:30</span>
-                                <h3 class="text-xl font-bold mt-1 text-gray-800">⛩️ <a href="https://www.atsutajingu.or.jp/jingu/" target="_blank" class="text-blue-600 hover:underline">熱田神宮</a></h3>
-                                <p class="mt-1 text-gray-500 text-sm">參拜日本三大神宮之一，感受千年古木環繞的莊嚴氛圍。</p>
+                                <span class="block font-bold text-gray-700 text-base">08:00 早餐</span>
+                                <h3 class="text-xl font-bold mt-1 text-gray-800">🥞 ELOISE's Café</h3>
+                                <p class="mt-1 text-gray-500 text-sm">位於久屋大通公園的時尚咖啡廳，以美味的班尼迪克蛋和法式吐司聞名。</p>
+                                <div class="mt-3 text-sm text-gray-600 space-y-1">
+                                    <p>💰 預估花費：¥1,500 - ¥2,500</p>
+                                    <p><i class="fas fa-clock mr-1 text-gray-500"></i><b>營業時間：</b>08:00 - 20:00</p>
+                                </div>
+                                <iframe class="map-embed" loading="lazy" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3261.423985792965!2d136.90800531524483!3d35.17094098031551!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x600370eaf50a3139%3A0x86c65605d311c195!2sELOISE&#39;s%20Caf%C3%A9%20Hisaya-odori%20Park!5e0!3m2!1sen!2sjp!4v1700031174241!5m2!1sen!2sjp"></iframe>
+                            </div>
+                        </li>
+                        <li class="timeline-item relative pl-10 pb-8">
+                            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                                <span class="block font-bold text-gray-700 text-base">09:30 - 12:00</span>
+                                <h3 class="text-xl font-bold mt-1 text-gray-800">🏭 <a href="https://www.tcmit.org/chinese-tw/" target="_blank" class="text-blue-600 hover:underline">豐田產業技術紀念館</a></h3>
+                                <p class="mt-1 text-gray-500 text-sm">從紡織到汽車，見證日本產業龍頭的發展歷史，互動性十足。</p>
                                 <div class="transport-details">
-                                    <p class="font-bold text-gray-700">【名古屋 -> 熱田神宮】</p>
-                                    <p>搭乘「名鐵名古屋本線」至 [神宮前]。</p>
-                                    <p><b>月台：</b>名鐵名古屋站 2, 3, 4號月台皆有車，請依現場時刻表為準。</p>
+                                    <p class="font-bold text-gray-700">【名古屋 -> 紀念館】</p>
+                                    <p>搭乘「名鐵名古屋本線」至 [榮生]。</p>
+                                    <p><b>月台：</b>名鐵名古屋站 1號月台</p>
                                 </div>
                                 <div class="mt-3 text-sm text-gray-600 space-y-1">
-                                    <p>🕒 交通時間：約 15-20 分鐘</p>
-                                    <p>💰 預估花費：(交通) ¥240 / (門票) 免費</p>
-                                    <p><i class="fas fa-clock mr-1 text-gray-500"></i><b>營業時間：</b>[境內] 24小時 [寶物館] 09:00 - 16:30</p>
+                                    <p>🕒 交通時間：約 10 分鐘</p>
+                                    <p>💰 預估花費：(交通) ¥170 / (門票) ¥1,000</p>
+                                    <p><i class="fas fa-clock mr-1 text-gray-500"></i><b>營業時間：</b>09:30 - 17:00</p>
                                 </div>
                             </div>
                         </li>
                         <li class="timeline-item relative pl-10 pb-8">
                             <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                                <span class="block font-bold text-gray-700 text-base">11:00 - 13:30</span>
+                                <span class="block font-bold text-gray-700 text-base">12:30 - 16:00</span>
                                 <h3 class="text-xl font-bold mt-1 text-gray-800">🏯 <a href="https://www.nagoyajo.city.nagoya.jp/tw/" target="_blank" class="text-blue-600 hover:underline">名古屋城</a> & 午餐</h3>
                                 <p class="mt-1"><span class="bg-blue-100 text-blue-800 text-sm font-semibold mr-2 px-2.5 py-0.5 rounded-full"><i class="fas fa-chess-rook mr-1"></i>日本100名城</span></p>
-                                <p class="mt-2 text-gray-500 text-sm">欣賞日本三大名城之一的雄偉。午餐(約12:00)可在城下的「金鯱橫丁」解決，推薦「矢場味噌豬排」。</p>
+                                <p class="mt-2 text-gray-500 text-sm">欣賞日本三大名城之一的雄偉。午餐(約12:30)可在城下的「金鯱橫丁」解決，推薦「矢場味噌豬排」。</p>
                                 <div class="transport-details">
-                                    <p class="font-bold text-gray-700">【熱田神宮 -> 名古屋城】</p>
-                                    <p>從 [神宮西] 搭乘「地鐵名城線」至 [名古屋城]。</p>
+                                    <p class="font-bold text-gray-700">【紀念館 -> 名古屋城】</p>
+                                    <p>步行至 [龜島] 搭乘「地鐵東山線」至 [榮]，轉乘「地鐵名城線」至 [名古屋城]。</p>
                                 </div>
                                 <div class="mt-3 text-sm text-gray-600 space-y-1">
-                                    <p>🕒 交通時間：約 20 分鐘</p>
-                                    <p>💰 預估花費：(交通) ¥270 / (門票) ¥500 / (午餐) ¥2,000-3,000</p>
+                                    <p>🕒 交通時間：約 25 分鐘</p>
+                                    <p>💰 預估花費：(交通) ¥240 / (門票) ¥500 / (午餐) ¥2,000-3,000</p>
                                     <p><i class="fas fa-clock mr-1 text-gray-500"></i><b>營業時間：</b>[名古屋城] 09:00-16:30</p>
-                                </div>
-                                 <div class="mt-2">
-                                     <button onclick="getActivitySuggestion('名古屋城')" class="text-sm bg-blue-100 text-blue-700 px-3 py-1 rounded-full hover:bg-blue-200 transition">✨ AI 活動建議</button>
                                 </div>
                             </div>
                         </li>
                         <li class="timeline-item relative pl-10 pb-8">
                            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                                <span class="block font-bold text-gray-700 text-base">14:00 - 17:00</span>
+                                <span class="block font-bold text-gray-700 text-base">16:30 onwards</span>
                                 <h3 class="text-xl font-bold mt-1 text-gray-800">🏮 漫步大須商店街</h3>
                                 <p class="mt-2 text-gray-600">📍 <a href="https://www.google.com/maps/search/?api=1&query=大須商店街" target="_blank" class="text-blue-600 hover:underline">大須商店街</a></p>
-                                <p class="mt-1 text-gray-500 text-sm">大須商店街是有拱廊的，本身就是絕佳的雨天備案。可以盡情享受逛街與品嚐小吃的樂趣。</p>
+                                <p class="mt-1 text-gray-500 text-sm">感受新舊文化交融的熱鬧商店街，有各式小吃、二手店與動漫周邊。</p>
                                  <div class="mt-3 text-sm text-gray-600 space-y-1">
                                      <p><i class="fas fa-clock mr-1 text-gray-500"></i><b>營業時間：</b>各店家約 11:00 - 20:00</p>
                                  </div>
+                                 <div class="mt-4 p-3 bg-rose-50 border-l-4 border-rose-400 rounded-r-lg">
+                                    <h4 class="font-bold text-rose-800"><i class="fas fa-cookie-bite mr-2"></i>人氣甜點 & 小吃</h4>
+                                    <ul class="text-sm text-rose-700 mt-1 list-disc list-inside space-y-1">
+                                        <li><b>新雀本店:</b> 販售傳統的醬油糰子(みたらし団子)，現烤的香氣總是吸引滿滿人潮。</li>
+                                        <li><b>大須栗りん:</b> 主打蒙布朗的專門店，可以品嚐到現擠的栗子泥甜點。</li>
+                                        <li><b>李さんの台湾名物屋台:</b> 想念台灣味？這裡的炸雞排和珍珠奶茶非常受歡迎。</li>
+                                    </ul>
+                                </div>
                            </div>
                         </li>
                          <li class="timeline-item relative pl-10 pb-8">
@@ -389,9 +390,6 @@
                                     <p>💰 預估花費：¥1,500 - ¥2,500</p>
                                     <p><i class="fas fa-clock mr-1 text-gray-500"></i><b>營業時間：</b>(矢場店) 11:30-14:00, 17:00-01:00</p>
                                 </div>
-                                <div class="mt-2">
-                                     <button onclick="getFoodSuggestion('大須商店街')" class="text-sm bg-purple-100 text-purple-700 px-3 py-1 rounded-full hover:bg-purple-200 transition">✨ AI 美食推薦</button>
-                                </div>
                                 <iframe class="map-embed" loading="lazy" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3261.948287754385!2d136.8837263152445!3d35.15810098031895!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x600376c8c491207d%3A0x6a1c5140b95c3b31!2z5ZGz5LuL5Y-k54-I6Zu75bqX!5e0!3m2!1szh-TW!2stw!4v1633582194680!5m2!1szh-TW!2stw"></iframe>
                             </div>
                         </li>
@@ -401,45 +399,37 @@
                 
                 <!-- Day 5 Content -->
                 <div id="day5" class="day-content">
-                    <div class="text-center mb-4">
-                        <button onclick="getItinerarySummary('day5')" class="bg-gradient-to-r from-purple-500 to-indigo-500 text-white font-bold py-2 px-4 rounded-full hover:shadow-lg transition-all duration-300">
-                            ✨ AI 產生當日提醒
-                        </button>
-                    </div>
                     <ul class="timeline">
                         <li class="timeline-item relative pl-10 pb-8">
                            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                                <span class="block font-bold text-gray-700 text-base">08:00 早餐</span>
-                                <h3 class="text-xl font-bold mt-1 text-gray-800">🍜 きしめん 住よし (棊子麵)</h3>
-                                <p class="mt-1 text-gray-500 text-sm">在離開名古屋前，到JR車站月台上的立食名店，品嚐道地的「棊子麵」。</p>
+                                <span class="block font-bold text-gray-700 text-base">08:30 早餐</span>
+                                <h3 class="text-xl font-bold mt-1 text-gray-800">🥐 コメダ珈琲店 (Komeda's Coffee) 名古屋西口店</h3>
+                                <p class="mt-1 text-gray-500 text-sm">最後一天，再次體驗經典的名古屋式早餐，為旅途畫下完美句點。</p>
                                <div class="mt-3 text-sm text-gray-600 space-y-1">
-                                    <p>💰 預估花費：¥600 - ¥1,000</p>
-                                    <p><i class="fas fa-clock mr-1 text-gray-500"></i><b>營業時間：</b>07:00 - 21:30</p>
+                                    <p>💰 預估花費：¥800 - ¥1,200</p>
+                                    <p><i class="fas fa-clock mr-1 text-gray-500"></i><b>營業時間：</b>07:00 - 23:00</p>
                                 </div>
-                                <iframe class="map-embed" loading="lazy" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3261.849021644754!2d136.88339131524456!3d35.1605669803182!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x600376ddc548c7db%3A0x83827a3c3079b099!2z44GN44GX44KB44KTIOS9m-OCjA!5e0!3m2!1szh-TW!2stw!4v1633582522718!5m2!1szh-TW!2stw"></iframe>
+                                <iframe class="map-embed" loading="lazy" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3261.89862592188!2d136.8804823152445!3d35.15934178031861!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x600376c9b68a86a1%3A0xf64f3a55c32ab7b2!2z44Kz44Oh44OA54-I546L5bqXIOOCpuOCv-OCuOODs-ODiOODleODquODg-ODiA!5e0!3m2!1sen!2sjp!4v1700031525791!5m2!1sen!2sjp"></iframe>
                             </div>
                         </li>
                         <li class="timeline-item relative pl-10 pb-8">
                             <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                                <span class="block font-bold text-gray-700 text-base">09:30 - 12:00</span>
-                                <h3 class="text-xl font-bold mt-1 text-gray-800">🏭 <a href="https://www.tcmit.org/chinese-tw/" target="_blank" class="text-blue-600 hover:underline">豐田產業技術紀念館</a></h3>
-                                <p class="mt-1 text-gray-500 text-sm">從紡織到汽車，見證日本產業龍頭的發展歷史，互動性十足。</p>
-                                <div class="mt-3 text-sm text-gray-600 space-y-1">
-                                    <p>💰 預估花費：(門票) ¥1,000</p>
-                                    <p><i class="fas fa-clock mr-1 text-gray-500"></i><b>營業時間：</b>09:30 - 17:00</p>
+                                <span class="block font-bold text-gray-700 text-base">10:00 - 13:00</span>
+                                <h3 class="text-xl font-bold mt-1 text-gray-800">🐬 <a href="https://www.nagoyaaqua.jp/" target="_blank" class="text-blue-600 hover:underline">名古屋港水族館</a> & 午餐</h3>
+                                <p class="mt-1 text-gray-500 text-sm">欣賞虎鯨、海豚等海洋生物的精彩表演。午餐可在水族館周邊的美食街解決。</p>
+                                <div class="transport-details">
+                                    <p class="font-bold text-gray-700">【名古屋 -> 名古屋港】</p>
+                                    <p>搭乘「地鐵東山線」至 [榮]，轉乘「地鐵名港線」至終點站 [名古屋港]。</p>
                                 </div>
-                            </div>
-                        </li>
-                        <li class="timeline-item relative pl-10 pb-8">
-                           <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                                <span class="block font-bold text-gray-700 text-base">12:00 - 13:00</span>
-                                <h3 class="text-xl font-bold mt-1 text-gray-800">🌳 <a href="https://www.noritake.co.jp/mori/" target="_blank" class="text-blue-600 hover:underline">則武森林</a> & 午餐</h3>
-                                <p class="mt-1 text-gray-500 text-sm">午餐可選擇車站地下街 ESCA 的「鳥開総本家」，品嚐名古屋交趾雞親子丼。</p>
                                 <div class="mt-3 text-sm text-gray-600 space-y-1">
-                                    <p>💰 預估花費：(午餐) ¥1,500 - ¥2,500</p>
-                                    <p><i class="fas fa-clock mr-1 text-gray-500"></i><b>營業時間：</b>[則武森林] 10:00-18:00 [鳥開] 11:00-22:00</p>
+                                    <p>🕒 交通時間：約 25 分鐘</p>
+                                    <p>💰 預估花費：(交通) ¥270 / (門票) ¥2,030 / (午餐) ¥1,500-2,500</p>
+                                    <p><i class="fas fa-clock mr-1 text-gray-500"></i><b>營業時間：</b>09:30 - 17:30</p>
                                 </div>
-                                <iframe class="map-embed" loading="lazy" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3261.879008269786!2d136.88081631524453!3d35.15983298031846!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x600376c9b33a7587%3A0x27221b392953284!2z6b6N6ZaA57e05pys5a62IOODk-ODg-OCt-ODvOW6l-S4i-OCgeOCv-OCuA!5e0!3m2!1szh-TW!2stw!4v1633582294158!5m2!1szh-TW!2stw"></iframe>
+                                <div class="mt-4 p-3 bg-rose-50 border-l-4 border-rose-400 rounded-r-lg">
+                                    <h4 class="font-bold text-rose-800"><i class="fas fa-ice-cream mr-2"></i>周邊甜點</h4>
+                                    <p class="text-sm text-rose-700 mt-1">水族館旁的商場「JETTY」內有可麗餅、冰淇淋等甜點店，適合在參觀後稍作休息。</p>
+                                </div>
                             </div>
                         </li>
                          <li class="timeline-item relative pl-10">
@@ -471,20 +461,6 @@
             <p>行程由 Gemini AI 規劃</p>
         </footer>
     </div>
-    
-    <!-- AI Modal -->
-    <div id="ai-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center p-4">
-        <div class="bg-white rounded-lg shadow-xl w-full max-w-lg">
-            <div class="p-4 border-b flex justify-between items-center">
-                <h3 id="ai-modal-title" class="text-xl font-bold">✨ AI 智慧助理</h3>
-                <button onclick="hideModal()" class="text-gray-500 hover:text-gray-800">&times;</button>
-            </div>
-            <div id="ai-modal-content" class="p-6 min-h-[200px] text-gray-700 leading-relaxed whitespace-pre-wrap flex items-center justify-center">
-                <!-- AI content will be injected here -->
-            </div>
-        </div>
-    </div>
-
 
     <script>
         const dailyShopsHTML = `
@@ -539,91 +515,6 @@
             // Activate the clicked tab
             event.currentTarget.classList.add('active');
         }
-
-        // --- Gemini AI Features ---
-        const modal = document.getElementById('ai-modal');
-        const modalTitle = document.getElementById('ai-modal-title');
-        const modalContent = document.getElementById('ai-modal-content');
-
-        function showModal(title) {
-            modalTitle.innerText = title;
-            modalContent.innerHTML = '<div class="loader"></div>';
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-        }
-
-        function hideModal() {
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-        }
-        
-        async function callGemini(prompt, retries = 3, delay = 1000) {
-            const apiKey = ""; // API key is handled by the environment
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
-            const payload = {
-                contents: [{ parts: [{ text: prompt }] }],
-            };
-            
-            try {
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-
-                if (!response.ok) {
-                    if (response.status === 429 && retries > 0) {
-                        console.warn(`Throttled. Retrying in ${delay / 1000}s...`);
-                        await new Promise(resolve => setTimeout(resolve, delay));
-                        return callGemini(prompt, retries - 1, delay * 2); // Exponential backoff
-                    }
-                    throw new Error(`API responded with status: ${response.status}`);
-                }
-
-                const result = await response.json();
-                const candidate = result.candidates?.[0];
-
-                if (candidate && candidate.content?.parts?.[0]?.text) {
-                    return candidate.content.parts[0].text;
-                } else {
-                    return "抱歉，AI 無法產生回應，請稍後再試。";
-                }
-            } catch (error) {
-                console.error("Gemini API call failed:", error);
-                return `發生錯誤，無法連接至 AI 服務。請檢查您的網路連線。 ${error.message}`;
-            }
-        }
-
-        async function getFoodSuggestion(location) {
-            const prompt = `你是一位專業的名古屋旅遊嚮導。我目前在名古屋的「${location}」。請推薦3家附近的美食選擇，不要重複清單上已有的餐廳。請包含以下類型：一家拉麵店、一家咖啡廳、一家當地特色料理。請用繁體中文以項目符號清單格式回覆，每項包含餐廳名稱、簡短特色描述（不超過50字）以及大概的價位。`;
-            showModal('✨ AI 美食推薦');
-            const result = await callGemini(prompt);
-            modalContent.innerText = result;
-        }
-
-        async function getActivitySuggestion(location) {
-            const prompt = `你是一位專業的名古屋旅遊嚮導。我目前在名古屋的「${location}」，如果我有額外的空閒時間，請推薦2個附近的景點或活動。請用繁體中文以項目符號清單格式回覆，每項包含地點名稱、簡短特色描述（不超過60字）以及營業時間或建議停留時間。`;
-            showModal('✨ AI 活動建議');
-            const result = await callGemini(prompt);
-            modalContent.innerText = result;
-        }
-
-        async function getItinerarySummary(dayId) {
-            const dayElement = document.getElementById(dayId);
-            let itineraryText = '';
-            dayElement.querySelectorAll('.timeline-item').forEach(item => {
-                const time = item.querySelector('.text-base')?.innerText || '';
-                const title = item.querySelector('.text-xl')?.innerText || '';
-                itineraryText += `${time} ${title}\n`;
-            });
-            
-            const prompt = `你是一位貼心的旅遊助理。請根據我今天的行程，用繁體中文生成一段簡潔的摘要，並列出3項最重要的提醒事項（例如：需要預約、攜帶現金、交通票券等）。請讓語氣活潑有趣。我的行程如下：\n${itineraryText}`;
-            showModal('✨ AI 當日總結與提醒');
-            const result = await callGemini(prompt);
-            modalContent.innerText = result;
-        }
-
-
     </script>
 
 </body>
