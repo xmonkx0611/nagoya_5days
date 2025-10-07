@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>名古屋5日遊</title>
+    <title>名古屋5日遊 v0.16 (AI增強版)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -72,13 +72,27 @@
             margin-top: 0.75rem;
             font-size: 0.875rem;
         }
+        #ai-modal-content .loader {
+            width: 48px;
+            height: 48px;
+            border: 5px solid #FFF;
+            border-bottom-color: #FF3D00;
+            border-radius: 50%;
+            display: inline-block;
+            box-sizing: border-box;
+            animation: rotation 1s linear infinite;
+        }
+        @keyframes rotation {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body class="bg-gray-100 p-2 sm:p-5">
 
     <div class="max-w-7xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
         <header class="bg-gray-800 text-white p-6 text-center">
-            <h1 class="text-3xl md:text-4xl font-bold">名古屋5日遊</h1>
+            <h1 class="text-3xl md:text-4xl font-bold">名古屋5日遊 (AI增強版)</h1>
             <p class="text-gray-300 mt-2">2025年11月23日 - 2025年11月27日</p>
         </header>
 
@@ -113,6 +127,11 @@
 
                 <!-- Day 1 Content -->
                 <div id="day1" class="day-content active">
+                    <div class="text-center mb-4">
+                        <button onclick="getItinerarySummary('day1')" class="bg-gradient-to-r from-purple-500 to-indigo-500 text-white font-bold py-2 px-4 rounded-full hover:shadow-lg transition-all duration-300">
+                            ✨ AI 產生當日提醒
+                        </button>
+                    </div>
                     <ul class="timeline">
                         <li class="timeline-item relative pl-10 pb-8">
                             <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
@@ -157,6 +176,9 @@
                                     <p>💰 預估花費：(地鐵) ¥210 / (電視塔門票) 約 ¥1,300</p>
                                     <p><i class="fas fa-clock mr-1 text-gray-500"></i><b>營業時間：</b>[綠洲21商店] 10:00-21:00 [電視塔] 10:00-21:00</p>
                                 </div>
+                                <div class="mt-2">
+                                     <button onclick="getActivitySuggestion('榮商圈')" class="text-sm bg-blue-100 text-blue-700 px-3 py-1 rounded-full hover:bg-blue-200 transition">✨ AI 活動建議</button>
+                                </div>
                             </div>
                         </li>
                         <li class="timeline-item relative pl-10 pb-8">
@@ -169,6 +191,9 @@
                                     <p>💰 預估花費：(晚餐) ¥6,000-9,000</p>
                                     <p><i class="fas fa-clock mr-1 text-gray-500"></i><b>營業時間：</b>約 17:00 - 23:00</p>
                                 </div>
+                                 <div class="mt-2">
+                                     <button onclick="getFoodSuggestion('伏見')" class="text-sm bg-purple-100 text-purple-700 px-3 py-1 rounded-full hover:bg-purple-200 transition">✨ AI 美食推薦</button>
+                                </div>
                                 <iframe class="map-embed" loading="lazy" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3261.649390547475!2d136.8973693152447!3d35.16556598031699!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x600370d9703d15ef%3A0x152277d3f9f9d150!2z54K554Gr54S86IKJIOalteaAn-WgtOagvOeVqiDliY3pmYg!5e0!3m2!1szh-TW!2stw!4v1699344444555!5m2!1szh-TW!2stw"></iframe>
                             </div>
                         </li>
@@ -178,6 +203,11 @@
 
                 <!-- Day 2 Content -->
                 <div id="day2" class="day-content">
+                    <div class="text-center mb-4">
+                        <button onclick="getItinerarySummary('day2')" class="bg-gradient-to-r from-purple-500 to-indigo-500 text-white font-bold py-2 px-4 rounded-full hover:shadow-lg transition-all duration-300">
+                            ✨ AI 產生當日提醒
+                        </button>
+                    </div>
                      <ul class="timeline">
                         <li class="timeline-item relative pl-10 pb-8">
                             <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
@@ -219,6 +249,9 @@
                                     <p>💰 預估花費：¥4,000 - ¥6,000</p>
                                     <p><i class="fas fa-clock mr-1 text-gray-500"></i><b>營業時間：</b>11:00 - 23:00</p>
                                 </div>
+                                <div class="mt-2">
+                                     <button onclick="getFoodSuggestion('名古屋車站')" class="text-sm bg-purple-100 text-purple-700 px-3 py-1 rounded-full hover:bg-purple-200 transition">✨ AI 美食推薦</button>
+                                </div>
                                 <iframe class="map-embed" loading="lazy" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3261.831514869894!2d136.88390931524458!3d35.16099398031806!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x600376c9c8948159%3A0x6f68a27a1a2512f7!2z44G-44KL44KE5pys5bqXIOOBn-S4i-ODreODo-ODs-OCuA!5e0!3m2!1szh-TW!2stw!4v1633582103394!5m2!1szh-TW!2stw"></iframe>
                             </div>
                         </li>
@@ -228,6 +261,11 @@
 
                 <!-- Day 3 Content -->
                 <div id="day3" class="day-content">
+                    <div class="text-center mb-4">
+                        <button onclick="getItinerarySummary('day3')" class="bg-gradient-to-r from-purple-500 to-indigo-500 text-white font-bold py-2 px-4 rounded-full hover:shadow-lg transition-all duration-300">
+                            ✨ AI 產生當日提醒
+                        </button>
+                    </div>
                      <ul class="timeline">
                          <li class="timeline-item relative pl-10 pb-8">
                             <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
@@ -261,8 +299,11 @@
                                     <h4 class="font-bold text-pink-800"><i class="fas fa-om mr-2"></i>人氣神社 & 授与品</h4>
                                     <p class="text-sm text-pink-700 mt-1">犬山城下的「<b>三光稻荷神社</b>」以洗錢、祈求良緣聞名，其粉紅色的<b>心型繪馬</b>在 Instagram 上非常受歡迎，是必拍的重點！</p>
                                     <div class="photo-container">
-                                        <img src="https://svcstrg.cld.navitime.jp/travelguide/p23080005/p23080005_01.webp" alt="三光稻荷神社的心型繪馬">
+                                        <img src="https://lh5.googleusercontent.com/p/AF1QipM5C9XQy71pG1y_2Y2GjF1z_w0x9v8Z3kY7d0rA=w408-h306-k-no" alt="三光稻荷神社的心型繪馬">
                                     </div>
+                                </div>
+                                 <div class="mt-2">
+                                     <button onclick="getActivitySuggestion('犬山城下町')" class="text-sm bg-blue-100 text-blue-700 px-3 py-1 rounded-full hover:bg-blue-200 transition">✨ AI 活動建議</button>
                                 </div>
                             </div>
                         </li>
@@ -285,6 +326,11 @@
 
                 <!-- Day 4 Content -->
                 <div id="day4" class="day-content">
+                    <div class="text-center mb-4">
+                        <button onclick="getItinerarySummary('day4')" class="bg-gradient-to-r from-purple-500 to-indigo-500 text-white font-bold py-2 px-4 rounded-full hover:shadow-lg transition-all duration-300">
+                            ✨ AI 產生當日提醒
+                        </button>
+                    </div>
                     <ul class="timeline">
                          <li class="timeline-item relative pl-10 pb-8">
                             <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
@@ -318,6 +364,9 @@
                                     <p>💰 預估花費：(交通) ¥270 / (門票) ¥500 / (午餐) ¥2,000-3,000</p>
                                     <p><i class="fas fa-clock mr-1 text-gray-500"></i><b>營業時間：</b>[名古屋城] 09:00-16:30</p>
                                 </div>
+                                 <div class="mt-2">
+                                     <button onclick="getActivitySuggestion('名古屋城')" class="text-sm bg-blue-100 text-blue-700 px-3 py-1 rounded-full hover:bg-blue-200 transition">✨ AI 活動建議</button>
+                                </div>
                             </div>
                         </li>
                         <li class="timeline-item relative pl-10 pb-8">
@@ -340,6 +389,9 @@
                                     <p>💰 預估花費：¥1,500 - ¥2,500</p>
                                     <p><i class="fas fa-clock mr-1 text-gray-500"></i><b>營業時間：</b>(矢場店) 11:30-14:00, 17:00-01:00</p>
                                 </div>
+                                <div class="mt-2">
+                                     <button onclick="getFoodSuggestion('大須商店街')" class="text-sm bg-purple-100 text-purple-700 px-3 py-1 rounded-full hover:bg-purple-200 transition">✨ AI 美食推薦</button>
+                                </div>
                                 <iframe class="map-embed" loading="lazy" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3261.948287754385!2d136.8837263152445!3d35.15810098031895!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x600376c8c491207d%3A0x6a1c5140b95c3b31!2z5ZGz5LuL5Y-k54-I6Zu75bqX!5e0!3m2!1szh-TW!2stw!4v1633582194680!5m2!1szh-TW!2stw"></iframe>
                             </div>
                         </li>
@@ -349,6 +401,11 @@
                 
                 <!-- Day 5 Content -->
                 <div id="day5" class="day-content">
+                    <div class="text-center mb-4">
+                        <button onclick="getItinerarySummary('day5')" class="bg-gradient-to-r from-purple-500 to-indigo-500 text-white font-bold py-2 px-4 rounded-full hover:shadow-lg transition-all duration-300">
+                            ✨ AI 產生當日提醒
+                        </button>
+                    </div>
                     <ul class="timeline">
                         <li class="timeline-item relative pl-10 pb-8">
                            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
@@ -414,6 +471,20 @@
             <p>行程由 Gemini AI 規劃</p>
         </footer>
     </div>
+    
+    <!-- AI Modal -->
+    <div id="ai-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center p-4">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-lg">
+            <div class="p-4 border-b flex justify-between items-center">
+                <h3 id="ai-modal-title" class="text-xl font-bold">✨ AI 智慧助理</h3>
+                <button onclick="hideModal()" class="text-gray-500 hover:text-gray-800">&times;</button>
+            </div>
+            <div id="ai-modal-content" class="p-6 min-h-[200px] text-gray-700 leading-relaxed whitespace-pre-wrap flex items-center justify-center">
+                <!-- AI content will be injected here -->
+            </div>
+        </div>
+    </div>
+
 
     <script>
         const dailyShopsHTML = `
@@ -468,6 +539,91 @@
             // Activate the clicked tab
             event.currentTarget.classList.add('active');
         }
+
+        // --- Gemini AI Features ---
+        const modal = document.getElementById('ai-modal');
+        const modalTitle = document.getElementById('ai-modal-title');
+        const modalContent = document.getElementById('ai-modal-content');
+
+        function showModal(title) {
+            modalTitle.innerText = title;
+            modalContent.innerHTML = '<div class="loader"></div>';
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function hideModal() {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+        
+        async function callGemini(prompt, retries = 3, delay = 1000) {
+            const apiKey = ""; // API key is handled by the environment
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+            const payload = {
+                contents: [{ parts: [{ text: prompt }] }],
+            };
+            
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    if (response.status === 429 && retries > 0) {
+                        console.warn(`Throttled. Retrying in ${delay / 1000}s...`);
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                        return callGemini(prompt, retries - 1, delay * 2); // Exponential backoff
+                    }
+                    throw new Error(`API responded with status: ${response.status}`);
+                }
+
+                const result = await response.json();
+                const candidate = result.candidates?.[0];
+
+                if (candidate && candidate.content?.parts?.[0]?.text) {
+                    return candidate.content.parts[0].text;
+                } else {
+                    return "抱歉，AI 無法產生回應，請稍後再試。";
+                }
+            } catch (error) {
+                console.error("Gemini API call failed:", error);
+                return `發生錯誤，無法連接至 AI 服務。請檢查您的網路連線。 ${error.message}`;
+            }
+        }
+
+        async function getFoodSuggestion(location) {
+            const prompt = `你是一位專業的名古屋旅遊嚮導。我目前在名古屋的「${location}」。請推薦3家附近的美食選擇，不要重複清單上已有的餐廳。請包含以下類型：一家拉麵店、一家咖啡廳、一家當地特色料理。請用繁體中文以項目符號清單格式回覆，每項包含餐廳名稱、簡短特色描述（不超過50字）以及大概的價位。`;
+            showModal('✨ AI 美食推薦');
+            const result = await callGemini(prompt);
+            modalContent.innerText = result;
+        }
+
+        async function getActivitySuggestion(location) {
+            const prompt = `你是一位專業的名古屋旅遊嚮導。我目前在名古屋的「${location}」，如果我有額外的空閒時間，請推薦2個附近的景點或活動。請用繁體中文以項目符號清單格式回覆，每項包含地點名稱、簡短特色描述（不超過60字）以及營業時間或建議停留時間。`;
+            showModal('✨ AI 活動建議');
+            const result = await callGemini(prompt);
+            modalContent.innerText = result;
+        }
+
+        async function getItinerarySummary(dayId) {
+            const dayElement = document.getElementById(dayId);
+            let itineraryText = '';
+            dayElement.querySelectorAll('.timeline-item').forEach(item => {
+                const time = item.querySelector('.text-base')?.innerText || '';
+                const title = item.querySelector('.text-xl')?.innerText || '';
+                itineraryText += `${time} ${title}\n`;
+            });
+            
+            const prompt = `你是一位貼心的旅遊助理。請根據我今天的行程，用繁體中文生成一段簡潔的摘要，並列出3項最重要的提醒事項（例如：需要預約、攜帶現金、交通票券等）。請讓語氣活潑有趣。我的行程如下：\n${itineraryText}`;
+            showModal('✨ AI 當日總結與提醒');
+            const result = await callGemini(prompt);
+            modalContent.innerText = result;
+        }
+
+
     </script>
 
 </body>
