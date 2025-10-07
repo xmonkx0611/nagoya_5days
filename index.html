@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的名古屋5日遊互動行程</title>
+    <title>名古屋5日</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -73,11 +73,23 @@
                     <button class="tab-btn py-2 px-4 rounded-full border-2 border-gray-300 font-semibold transition-all duration-300" onclick="showDay(event, 'day5')">Day 5 (11/27)</button>
                 </div>
                 
-                 <!-- General Tips -->
-                <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r-lg mb-6">
-                    <h4 class="font-bold text-yellow-800">交通與花費小提示</h4>
-                    <p class="text-sm text-yellow-700 mt-1">在市區觀光日 (Day 4)，若搭乘地鐵超過3次，建議購買地鐵一日券 (平日¥760 / 假日¥620)，會比單次購票划算。</p>
+                 <!-- Hotel & General Tips -->
+                <div class="grid md:grid-cols-2 gap-4 mb-6">
+                    <div class="bg-green-50 border-l-4 border-green-400 p-4 rounded-r-lg">
+                        <h4 class="font-bold text-green-800"><i class="fas fa-hotel mr-2"></i>住宿點周邊資訊</h4>
+                        <ul class="text-sm text-green-700 mt-2 list-disc list-inside space-y-1">
+                            <li><b>飯店：</b>大和ROYNET飯店 名古屋太閣通口</li>
+                            <li><b>便利商店：</b>FamilyMart、7-Eleven (步行1-2分鐘內皆有)</li>
+                            <li><b>超市：</b>成城石井 (位於名古屋車站內，品質較高)、AEON MaxValu (稍遠，但商品齊全)</li>
+                            <li><b>藥妝店：</b>松本清、大國藥妝店 (名古屋站周邊皆有)</li>
+                        </ul>
+                    </div>
+                    <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r-lg">
+                        <h4 class="font-bold text-yellow-800"><i class="fas fa-bus-alt mr-2"></i>交通與花費小提示</h4>
+                        <p class="text-sm text-yellow-700 mt-1">在市區觀光日 (Day 4)，若搭乘地鐵超過3次，建議購買地鐵一日券 (平日¥760 / 假日¥620)，會比單次購票划算。</p>
+                    </div>
                 </div>
+
 
                 <!-- Day 1 Content -->
                 <div id="day1" class="day-content active">
@@ -108,26 +120,36 @@
                                 <h3 class="text-xl font-bold mt-1 text-gray-800">🌃 榮商圈夜景</h3>
                                 <p class="mt-2 text-gray-600">📍 <a href="https://www.google.com/maps/search/?api=1&query=綠洲21" target="_blank" class="text-blue-600 hover:underline">綠洲21 & 中部電力 MIRAI TOWER</a></p>
                                 <p class="mt-1 text-gray-600">ℹ️ <a href="https://www.sakaepark.co.jp/tr/" target="_blank" class="text-blue-600 hover:underline">綠洲21官網</a> | <a href="https://www.nagoya-tv-tower.co.jp/tr/" target="_blank" class="text-blue-600 hover:underline">電視塔官網</a></p>
-                                <p class="mt-1 text-gray-500 text-sm">欣賞名古屋市區的璀璨夜景，感受都市的活力。</p>
                                 <div class="mt-3 text-sm text-gray-600">
                                     <p>🕒 交通時間：(地鐵) 約 5 分鐘</p>
                                     <p>💰 預估花費：(地鐵) ¥210 / (電視塔門票) 約 ¥1,300</p>
                                 </div>
+                                <div class="mt-4 p-3 bg-indigo-50 border-l-4 border-indigo-400 rounded-r-lg">
+                                    <h4 class="font-bold text-indigo-800"><i class="fas fa-store mr-2"></i>周邊購物</h4>
+                                    <p class="text-sm text-indigo-700 mt-1">此區為名古屋主要購物區，有<b>唐吉訶德 榮本店</b> (24小時)、<b>LOFT名古屋</b>、以及多家藥妝店，是補貨的絕佳地點。</p>
+                                </div>
                                 <div class="mt-4 p-3 bg-blue-50 border-l-4 border-blue-400 rounded-r-lg">
                                     <h4 class="font-bold text-blue-800"><i class="fas fa-cloud-rain mr-2"></i>雨天備案</h4>
-                                    <p class="text-sm text-blue-700 mt-1">此區多為室內或有遮蔽，影響不大。可花更多時間探索「榮地下街 (Sakae Chika)」或「Central Park 地下街」，感受日本最大規模地下街的魅力。</p>
+                                    <p class="text-sm text-blue-700 mt-1">此區多為室內或有遮蔽，影響不大。可花更多時間探索「榮地下街 (Sakae Chika)」或「Central Park 地下街」。</p>
                                 </div>
                             </div>
                         </li>
-                        <li class="timeline-item relative pl-10">
+                        <li class="timeline-item relative pl-10 pb-8">
                            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
                                 <span class="block font-bold text-gray-700 text-base">晚餐</span>
                                 <h3 class="text-xl font-bold mt-1 text-gray-800">🥩 炭火焼肉 伏見屋 飛騨牛 別邸</h3>
+                                <p class="mt-2 text-gray-600">ℹ️ <a href="https://tabelog.com/aichi/A2301/A230102/23078493/" target="_blank" class="text-blue-600 hover:underline">線上訂位 (Tabelog)</a></p>
                                 <p class="mt-1 text-gray-500 text-sm">位於伏見地區的高級燒肉店，專門提供頂級的飛驒牛。晚餐後若有時間，仍可到榮商圈的 HARBS 享用甜點。</p>
                                 <div class="mt-3 text-sm text-gray-600">
                                     <p>💰 預估花費：(晚餐) ¥6,000-9,000 / (甜點) ¥1,500-2,000</p>
                                 </div>
                                 <iframe class="map-embed" loading="lazy" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3261.649390547475!2d136.8973693152447!3d35.16556598031699!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x600370d9703d15ef%3A0x152277d3f9f9d150!2z54K554Gr54S86IKJIOalteaAn-WgtOagvOeVqiDliY3pmYg!5e0!3m2!1szh-TW!2stw!4v1699344444555!5m2!1szh-TW!2stw"></iframe>
+                            </div>
+                        </li>
+                         <li class="timeline-item relative pl-10">
+                           <div class="bg-orange-50 p-4 rounded-lg border-l-4 border-orange-400">
+                                <h3 class="text-lg font-bold text-orange-800"><i class="fas fa-shopping-cart mr-2"></i>回程補給提醒</h3>
+                                <p class="mt-1 text-gray-500 text-sm">從榮搭乘地鐵東山線返回名古屋站。車站內及飯店附近有多家24小時營業的便利商店 (FamilyMart/7-Eleven)，方便購買宵夜和飲品。</p>
                             </div>
                         </li>
                     </ul>
@@ -157,21 +179,27 @@
                                     <p>🕒 交通時間：約 50-60 分鐘</p>
                                     <p>💰 預估花費：(交通) 單程約 ¥670 / (午餐) ¥1,500-2,500</p>
                                 </div>
-                                <div class="mt-4 p-3 bg-blue-50 border-l-4 border-blue-400 rounded-r-lg">
-                                    <h4 class="font-bold text-blue-800"><i class="fas fa-cloud-rain mr-2"></i>雨天備案</h4>
-                                    <p class="text-sm text-blue-700 mt-1">吉卜力公園大部分設施（如大倉庫）皆為室內，是絕佳的雨天選擇。只需準備雨傘在園區各區域間移動即可。</p>
+                                <div class="mt-4 p-3 bg-teal-50 border-l-4 border-teal-400 rounded-r-lg">
+                                    <h4 class="font-bold text-teal-800"><i class="fas fa-gift mr-2"></i>伴手禮推薦</h4>
+                                    <p class="text-sm text-teal-700 mt-1">園區內商店販售大量<b>限定商品</b>，從玩偶、文具到模型應有盡有，是粉絲們不可錯過的地方。</p>
                                 </div>
                             </div>
                         </li>
-                         <li class="timeline-item relative pl-10">
+                         <li class="timeline-item relative pl-10 pb-8">
                            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
                                 <span class="block font-bold text-gray-700 text-base">晚餐</span>
-                                <h3 class="text-xl font-bold mt-1 text-gray-800">🍖 矢場とん (矢場味噌豬排)</h3>
-                                <p class="mt-1 text-gray-500 text-sm">返回名古屋車站後，品嚐名古屋代表美食之一的味噌豬排，濃郁的醬汁搭配酥脆的豬排，令人回味無窮。</p>
+                                <h3 class="text-xl font-bold mt-1 text-gray-800">鰻魚飯三吃：まるや本店</h3>
+                                <p class="mt-1 text-gray-500 text-sm">返回名古屋車站後，品嚐著名的「鰻魚飯三吃 (ひつまぶし)」，一次享受原味、佐料、茶泡飯三種不同風味。</p>
                                 <div class="mt-3 text-sm text-gray-600">
-                                    <p>💰 預估花費：¥2,000 - ¥3,000</p>
+                                    <p>💰 預估花費：¥4,000 - ¥6,000</p>
                                 </div>
-                                <iframe class="map-embed" loading="lazy" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3261.849021644754!2d136.88339131524456!3d35.1605669803182!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x600376c9d8ab8777%3A0x868b2481062b5311!2z55-z5aC044Go44KTIOODk-ODg-OCt-ODvOW6l-S4i-OCreODo-ODs-OCuA!5e0!3m2!1szh-TW!2stw!4v1633581804863!5m2!1szh-TW!2stw"></iframe>
+                                <iframe class="map-embed" loading="lazy" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3261.831514869894!2d136.88390931524458!3d35.16099398031806!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x600376c9c8948159%3A0x6f68a27a1a2512f7!2z44G-44KL44KE5pys5bqXIOOBn-S4i-ODreODo-ODs-OCuA!5e0!3m2!1szh-TW!2stw!4v1633582103394!5m2!1szh-TW!2stw"></iframe>
+                            </div>
+                        </li>
+                         <li class="timeline-item relative pl-10">
+                           <div class="bg-orange-50 p-4 rounded-lg border-l-4 border-orange-400">
+                                <h3 class="text-lg font-bold text-orange-800"><i class="fas fa-shopping-cart mr-2"></i>回程補給提醒</h3>
+                                <p class="mt-1 text-gray-500 text-sm">晚餐後直接返回飯店，飯店樓下及對面即有便利商店可供採買。</p>
                             </div>
                         </li>
                     </ul>
@@ -196,26 +224,41 @@
                                 <span class="block font-bold text-gray-700 text-base">10:00 - 16:00</span>
                                 <h3 class="text-xl font-bold mt-1 text-gray-800">🏯 國寶犬山城 & 城下町散策</h3>
                                 <p class="mt-2 text-gray-600">📍 <a href="https://www.google.com/maps/search/?api=1&query=犬山城" target="_blank" class="text-blue-600 hover:underline">犬山城</a> | ℹ️ <a href="https://inuyamajo.jp/zh-hant/" target="_blank" class="text-blue-600 hover:underline">官方網站</a></p>
-                                <p class="mt-1 text-gray-500 text-sm">參觀日本現存最古老天守。午餐就在城下町解決，品嚐五平餅、飛驒牛握壽司、醬油糰子等特色小吃。</p>
+                                <p class="mt-1 text-gray-500 text-sm">參觀日本現存最古老天守。午餐就在城下町解決，品嚐五平餅、飛驒牛握壽司等特色小吃。</p>
                                 <div class="mt-3 text-sm text-gray-600">
                                     <p>🕒 交通時間：約 30 分鐘</p>
                                     <p>💰 預估花費：(交通) 單程 ¥630 / (門票+午餐) ¥2,500-3,500</p>
                                 </div>
+                                <div class="mt-4 p-3 bg-teal-50 border-l-4 border-teal-400 rounded-r-lg">
+                                    <h4 class="font-bold text-teal-800"><i class="fas fa-gift mr-2"></i>伴手禮推薦</h4>
+                                    <ul class="text-sm text-teal-700 mt-1 list-disc list-inside space-y-1">
+                                        <li><b>げんこつ飴：</b>犬山名產，口感獨特的古早味拳頭糖。</li>
+                                        <li><b>犬山燒：</b>當地特色的陶瓷器，適合當作紀念品。</li>
+                                        <li><b>醤油おこげ串：</b>現烤的醬油鍋巴串，香氣十足。</li>
+                                    </ul>
+                                </div>
                                 <div class="mt-4 p-3 bg-blue-50 border-l-4 border-blue-400 rounded-r-lg">
                                     <h4 class="font-bold text-blue-800"><i class="fas fa-cloud-rain mr-2"></i>雨天備案</h4>
-                                    <p class="text-sm text-blue-700 mt-1">可改往「<a href='https://www.meijimura.com/chinese-top/' target='_blank' class='font-bold hover:underline'>博物館明治村</a>」。這裡移築並保存了60多座明治時期的建築，多數可入內參觀，相較於開放式的城下町，是更佳的雨天選擇（仍需雨傘在園區移動）。</p>
+                                    <p class="text-sm text-blue-700 mt-1">可改往「<a href='https://www.meijimura.com/chinese-top/' target='_blank' class='font-bold hover:underline'>博物館明治村</a>」。這裡移築並保存了60多座明治時期的建築，多數可入內參觀，是更佳的雨天選擇。</p>
                                 </div>
                             </div>
                         </li>
-                        <li class="timeline-item relative pl-10">
+                        <li class="timeline-item relative pl-10 pb-8">
                            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
                                 <span class="block font-bold text-gray-700 text-base">晚餐</span>
                                 <h3 class="text-xl font-bold mt-1 text-gray-800">🥩 和牛Tanji 焼肉吃到飽</h3>
+                                <p class="mt-2 text-gray-600">ℹ️ <a href="https://www.hotpepper.jp/strJ001275037/" target="_blank" class="text-blue-600 hover:underline">線上訂位 (Hot Pepper)</a></p>
                                 <p class="mt-1 text-gray-500 text-sm">回到名古屋車站後，到車站附近的「和牛Tanji」享受和牛燒肉吃到飽，犒賞一天的旅途勞累。</p>
                                 <div class="mt-3 text-sm text-gray-600">
                                     <p>💰 預估花費：¥5,000 - ¥7,000</p>
                                 </div>
                                 <iframe class="map-embed" loading="lazy" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3261.859608552086!2d136.88107931524458!3d35.16029598031826!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x600376d9101d017b%3A0x6b10787d559a4c33!2z5ZKM54mb44K_44Oz44OAIOeUoumjn-iClsS4g-OCs-ODvOOCuA!5e0!3m2!1szh-TW!2stw!4v1699344444666!5m2!1szh-TW!2stw"></iframe>
+                            </div>
+                        </li>
+                        <li class="timeline-item relative pl-10">
+                           <div class="bg-orange-50 p-4 rounded-lg border-l-4 border-orange-400">
+                                <h3 class="text-lg font-bold text-orange-800"><i class="fas fa-shopping-cart mr-2"></i>回程補給提醒</h3>
+                                <p class="mt-1 text-gray-500 text-sm">從名鐵名古屋站步行回飯店，途中會經過數家便利商店。</p>
                             </div>
                         </li>
                     </ul>
@@ -224,42 +267,51 @@
                 <!-- Day 4 Content -->
                 <div id="day4" class="day-content">
                     <ul class="timeline">
+                         <li class="timeline-item relative pl-10 pb-8">
+                            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                                <span class="block font-bold text-gray-700 text-base">09:00 - 10:30</span>
+                                <h3 class="text-xl font-bold mt-1 text-gray-800">⛩️ 熱田神宮</h3>
+                                <p class="mt-2 text-gray-600">📍 <a href="https://www.google.com/maps/search/?api=1&query=熱田神宮" target="_blank" class="text-blue-600 hover:underline">熱田神宮</a> | ℹ️ <a href="https://www.atsutajingu.or.jp/jingu/" target="_blank" class="text-blue-600 hover:underline">官方網站</a></p>
+                                <p class="mt-1 text-gray-500 text-sm">參拜日本三大神宮之一，感受千年古木環繞的莊嚴氛圍。</p>
+                                <div class="mt-3 text-sm text-gray-600">
+                                    <p>🕒 交通時間：(從名古屋站) 約 15-20 分鐘</p>
+                                    <p>💰 預估花費：(交通) ¥240 / (門票) 免費</p>
+                                </div>
+                                <div class="mt-4 p-3 bg-teal-50 border-l-4 border-teal-400 rounded-r-lg">
+                                    <h4 class="font-bold text-teal-800"><i class="fas fa-gift mr-2"></i>伴手禮推薦</h4>
+                                    <p class="text-sm text-teal-700 mt-1">神宮內的「宮きしめん」餐廳販售的<b>棊子麵禮盒</b>是官方認證的伴手禮；另外各式<b>御守 (お守り)</b> 也是熱門選擇。</p>
+                                </div>
+                            </div>
+                        </li>
                         <li class="timeline-item relative pl-10 pb-8">
                             <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                                <span class="block font-bold text-gray-700 text-base">09:30 - 12:00</span>
-                                <h3 class="text-xl font-bold mt-1 text-gray-800">🏯 名古屋城巡禮</h3>
+                                <span class="block font-bold text-gray-700 text-base">11:00 - 13:30</span>
+                                <h3 class="text-xl font-bold mt-1 text-gray-800">🏯 名古屋城 & 午餐</h3>
                                 <p class="mt-2 text-gray-600">📍 <a href="https://www.google.com/maps/search/?api=1&query=名古屋城" target="_blank" class="text-blue-600 hover:underline">名古屋城</a> | ℹ️ <a href="https://www.nagoyajo.city.nagoya.jp/tw/" target="_blank" class="text-blue-600 hover:underline">官方網站</a></p>
-                                <p class="mt-1 text-gray-500 text-sm">欣賞日本三大名城之一的雄偉，以及金碧輝煌的本丸御殿。</p>
+                                <p class="mt-1 text-gray-500 text-sm">欣賞日本三大名城之一的雄偉。午餐可在城下的「金鯱橫丁」解決，推薦「矢場味噌豬排」。</p>
                                 <div class="mt-3 text-sm text-gray-600">
-                                    <p>🕒 交通時間：約 10 分鐘</p>
-                                    <p>💰 預估花費：(交通) ¥240 / (門票) ¥500</p>
-                                </div>
-                                <div class="mt-4 p-3 bg-blue-50 border-l-4 border-blue-400 rounded-r-lg">
-                                    <h4 class="font-bold text-blue-800"><i class="fas fa-cloud-rain mr-2"></i>雨天備案</h4>
-                                    <p class="text-sm text-blue-700 mt-1">若天氣不佳，可將下午的大須商店街行程，替換為參觀「<a href='http://www.ncsm.city.nagoya.jp/en/' target='_blank' class='font-bold hover:underline'>名古屋市科學館</a>」，其擁有世界最大的天象儀，是極受歡迎的室內景點。</p>
+                                    <p>🕒 交通時間：(從熱田神宮) 約 20 分鐘</p>
+                                    <p>💰 預估花費：(交通) ¥270 / (門票) ¥500 / (午餐) ¥2,000-3,000</p>
                                 </div>
                             </div>
                         </li>
                         <li class="timeline-item relative pl-10 pb-8">
                            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                                <span class="block font-bold text-gray-700 text-base">午餐</span>
-                                <h3 class="text-xl font-bold mt-1 text-gray-800">鰻魚飯三吃：まるや本店</h3>
-                                <p class="mt-1 text-gray-500 text-sm">在名古屋車站分店品嚐著名的「鰻魚飯三吃 (ひつまぶし)」，一次享受三種不同風味的鰻魚飯。</p>
-                                <div class="mt-3 text-sm text-gray-600">
-                                    <p>💰 預估花費：¥4,000 - ¥6,000</p>
-                                </div>
-                                <iframe class="map-embed" loading="lazy" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3261.831514869894!2d136.88390931524458!3d35.16099398031806!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x600376c9c8948159%3A0x6f68a27a1a2512f7!2z44G-44KL44KE5pys5bqXIOOBn-S4i-ODreODo-ODs-OCuA!5e0!3m2!1szh-TW!2stw!4v1633582103394!5m2!1szh-TW!2stw"></iframe>
-                            </div>
-                        </li>
-                        <li class="timeline-item relative pl-10 pb-8">
-                           <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                                <span class="block font-bold text-gray-700 text-base">13:30 - 17:00</span>
+                                <span class="block font-bold text-gray-700 text-base">14:00 - 17:00</span>
                                 <h3 class="text-xl font-bold mt-1 text-gray-800">🏮 漫步大須商店街</h3>
                                 <p class="mt-2 text-gray-600">📍 <a href="https://www.google.com/maps/search/?api=1&query=大須商店街" target="_blank" class="text-blue-600 hover:underline">大須商店街</a> | ℹ️ <a href="https://zh.wikipedia.org/wiki/%E5%A4%A7%E9%A0%88%E5%95%86%E5%BA%97%E8%A1%97" target="_blank" class="text-blue-600 hover:underline">維基百科</a></p>
                                 <p class="mt-1 text-gray-500 text-sm">大須商店街是有拱廊的，本身就是絕佳的雨天備案。可以盡情享受逛街與品嚐小吃的樂趣。</p>
-                            </div>
+                                <div class="mt-4 p-3 bg-teal-50 border-l-4 border-teal-400 rounded-r-lg">
+                                    <h4 class="font-bold text-teal-800"><i class="fas fa-gift mr-2"></i>伴手禮推薦</h4>
+                                    <p class="text-sm text-teal-700 mt-1">名古屋名產<b>「ういろう」(外郎糕)</b> 的名店如「青柳總本家」在此有分店。另外，這裡的二手商店和動漫周邊店也藏有許多寶物。</p>
+                                </div>
+                                 <div class="mt-4 p-3 bg-indigo-50 border-l-4 border-indigo-400 rounded-r-lg">
+                                    <h4 class="font-bold text-indigo-800"><i class="fas fa-store mr-2"></i>周邊購物</h4>
+                                    <p class="text-sm text-indigo-700 mt-1">商店街內有多家<b>大國藥妝店</b>，價格實惠，是採買藥妝的好地方。</p>
+                                </div>
+                           </div>
                         </li>
-                         <li class="timeline-item relative pl-10">
+                         <li class="timeline-item relative pl-10 pb-8">
                            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
                                 <span class="block font-bold text-gray-700 text-base">晚餐</span>
                                 <h3 class="text-xl font-bold mt-1 text-gray-800">🌶️ 味仙 (台灣拉麵)</h3>
@@ -268,6 +320,12 @@
                                     <p>💰 預估花費：¥1,500 - ¥2,500</p>
                                 </div>
                                 <iframe class="map-embed" loading="lazy" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3261.948287754385!2d136.8837263152445!3d35.15810098031895!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x600376c8c491207d%3A0x6a1c5140b95c3b31!2z5ZGz5LuL5Y-k54-I6Zu75bqX!5e0!3m2!1szh-TW!2stw!4v1633582194680!5m2!1szh-TW!2stw"></iframe>
+                            </div>
+                        </li>
+                        <li class="timeline-item relative pl-10">
+                           <div class="bg-orange-50 p-4 rounded-lg border-l-4 border-orange-400">
+                                <h3 class="text-lg font-bold text-orange-800"><i class="fas fa-shopping-cart mr-2"></i>回程補給提醒</h3>
+                                <p class="mt-1 text-gray-500 text-sm">從大須商店街搭乘地鐵鶴舞線至「伏見」轉東山線即可返回名古屋站。車站周邊的便利商店選擇眾多。</p>
                             </div>
                         </li>
                     </ul>
@@ -296,26 +354,34 @@
                                 <div class="mt-3 text-sm text-gray-600">
                                     <p>💰 預估花費：(門票) ¥1,000</p>
                                 </div>
+                                <div class="mt-4 p-3 bg-teal-50 border-l-4 border-teal-400 rounded-r-lg">
+                                    <h4 class="font-bold text-teal-800"><i class="fas fa-gift mr-2"></i>伴手禮推薦</h4>
+                                    <p class="text-sm text-teal-700 mt-1">紀念館商店販售許多<b>限定版模型車</b>、織布機圖案的毛巾、以及獨特的咖哩塊，非常特別。</p>
+                                </div>
                             </div>
                         </li>
                         <li class="timeline-item relative pl-10 pb-8">
                            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                                <span class="block font-bold text-gray-700 text-base">12:00 - 13:30</span>
+                                <span class="block font-bold text-gray-700 text-base">12:00 - 13:00</span>
                                 <h3 class="text-xl font-bold mt-1 text-gray-800">🌳 則武森林 & 午餐</h3>
                                 <p class="mt-2 text-gray-600">📍 <a href="https://www.google.com/maps/search/?api=1&query=ノリタケの森" target="_blank" class="text-blue-600 hover:underline">則武森林</a> | ℹ️ <a href="https://www.noritake.co.jp/mori/" target="_blank" class="text-blue-600 hover:underline">官方網站</a></p>
-                                <p class="mt-1 text-gray-500 text-sm">欣賞精緻的陶瓷工藝。午餐可選擇車站地下街 ESCA 的「鳥開総本家」，品嚐名古屋交趾雞親子丼。</p>
+                                <p class="mt-1 text-gray-500 text-sm">午餐可選擇車站地下街 ESCA 的「鳥開総本家」，品嚐名古屋交趾雞親子丼。</p>
                                 <div class="mt-3 text-sm text-gray-600">
                                     <p>💰 預估花費：(午餐) ¥1,500 - ¥2,500</p>
+                                </div>
+                                <div class="mt-4 p-3 bg-teal-50 border-l-4 border-teal-400 rounded-r-lg">
+                                    <h4 class="font-bold text-teal-800"><i class="fas fa-gift mr-2"></i>伴手禮推薦</h4>
+                                    <p class="text-sm text-teal-700 mt-1"><b>Noritake 瓷器</b>是世界知名的品牌，在此購買有關稅優惠，設計精美的餅乾禮盒也是人氣選項。</p>
                                 </div>
                                 <iframe class="map-embed" loading="lazy" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3261.879008269786!2d136.88081631524453!3d35.15983298031846!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x600376c9b33a7587%3A0x27221b392953284!2z6b6N6ZaA57e05pys5a62IOODk-ODg-OCt-ODvOW6l-S4i-OCgeOCv-OCuA!5e0!3m2!1szh-TW!2stw!4v1633582294158!5m2!1szh-TW!2stw"></iframe>
                             </div>
                         </li>
                          <li class="timeline-item relative pl-10">
                            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                                <span class="block font-bold text-gray-700 text-base">14:00 - 15:00</span>
+                                <span class="block font-bold text-gray-700 text-base">13:30 - 14:10</span>
                                 <h3 class="text-xl font-bold mt-1 text-gray-800">✈️ 前往機場</h3>
                                 <p class="mt-2 text-gray-600">📍 <a href="https://www.google.com/maps/search/?api=1&query=中部国際空港" target="_blank" class="text-blue-600 hover:underline">中部國際機場 (NGO)</a></p>
-                                <p class="mt-1 text-gray-500 text-sm">準備搭乘國泰航空 CX531 返回。</p>
+                                <p class="mt-1 text-gray-500 text-sm">搭車前往機場，請務必在 <strong class="text-red-600">14:10</strong> 前抵達機場，以預留充足的報到時間。</p>
                                 <div class="mt-3 text-sm text-gray-600">
                                     <p>🕒 交通時間：約 28-35 分鐘</p>
                                     <p>💰 預估花費：¥1,250 (μ-SKY) 或 ¥890 (特急)</p>
